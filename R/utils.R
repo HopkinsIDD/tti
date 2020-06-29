@@ -14,6 +14,7 @@ is_probability <- function(x) {
               You input: {x}"
     )
   }
+  invisible(TRUE)
 }
 
 is_positive <- function(x) {
@@ -24,6 +25,7 @@ is_positive <- function(x) {
               You input: {x}"
     )
   }
+  invisible(TRUE)
 }
 
 not_equal <- function(x, y, ...) {
