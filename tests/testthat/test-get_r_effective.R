@@ -33,7 +33,7 @@ test_that("get_r_effective works, change eta", {
 })
 
 test_that("get_r_effective works, change nu", {
-  param <- 0.9
+  param <- 10
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.15, Qhps = 0.05, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(nu = param)
