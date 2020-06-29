@@ -24,7 +24,7 @@ check_pqc <- function(pqc) {
     )
   }
 
-  if (!all(pqc > 0)) {
+  if (!all(pqc >= 0)) {
     stop_glue(
       "All elements of `{deparse(substitute(pqc))}` must be positive"
     )
