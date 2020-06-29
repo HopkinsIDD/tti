@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # tti
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/HopkinsIDD/tti.svg?branch=master)](https://travis-ci.org/HopkinsIDD/tti)
 <!-- badges: end -->
 
 The goal of tti is to facilitate the recursive calculation of infection proportions for the test-trace-isolate process.
