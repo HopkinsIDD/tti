@@ -1,0 +1,112 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# tti
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of tti is to facilitate the recursive calculation of infection proportions for the test-trace-isolate process.
+
+## Installation
+
+You can install the development version of tti from GitHub with:
+
+``` r
+devtools::install_github("HopkinsIDD/covid_test_isolate/tti")
+```
+
+## Example
+
+```{r}
+library(tti)
+```
+
+The `get_pqc_equilibrium()` function will iterate through the passive-quarantine-community vectors until "equilibrium" is met, as specified by the `tolerance` parameter. For example, here we start with 80% symptomatic in the community and 20% asymptomatic in the community.
+
+```{r}
+pqc <- get_pqc_equilibrium(init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0,
+                             Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8,
+                             Ca = 0.2))
+pqc
+```
+
+From this, we can calculate the proportion quarantined using the `get_prop_quarantined()` function.
+
+```{r}
+get_prop_quarantined(pqc)
+```
+
+We can then calculate the $R_{effective}$ under this scenario.
+
+```{r}
+get_r_effective(pqc)
+```
+
+The function `get_proportions_df()` will generate a data frame with four columns:  
+
+* `t`: the time (iteration)  
+* `prop_infected`: The proportion infected  
+* `r_effective`: The effective R value
+* `category`: The category
+
+For example, to run the recursive function over 10 time points, we would run the following.
+
+```{r}
+d <- get_proportions_df(duration = 10)
+d
+```
+
+```{r fig-example, message = FALSE, warning = FALSE}
+library(ggplot2)
+ggplot(d, aes(x = t, y = prop_infected, color = category)) + 
+  geom_line() + 
+  scale_y_continuous("Proportion of Infected")
+```
+
+We can then calculate the effective $R$ after each iteration.
+
+```{r, message = FALSE, warning = FALSE}
+library(dplyr)
+r <- d %>%
+  distinct(t, r_effective)
+r
+```
+
+```{r eff-r}
+ggplot(r, aes(x = t, y = r_effective)) +
+  geom_line() +
+  scale_y_continuous("Effective R")
+```
+
+We can also look at the $R_{effective}$ over a variety of parameters using the `get_r_effective_df()` function. This can take parameters as either single number scalars or vectors of parameters to try. For example, if we wanted to look at how $R$ is affected by varying `t_ps` between 1 and 14 and `rho_s` values of 0.05, 0.25, and 0.5, we would run the following.
+
+```{r}
+d <- get_r_effective_df(t_ps = 1:14, 
+                        rho_s = c(0.05, 0.25, 0.5))
+d
+```
+
+This gives us a data frame with 18 columns, the first being the $R_{effective}$ and the subsequent columns detailing the parameters. Notice here there are 52 rows, because we had 52 combinations of `t_ps` and `rho_s` that we provided.
+
+```{r eff-r-sim}
+ggplot(d, aes(x = t_ps, y = r_effective, color = factor(rho_s))) +
+  geom_line() + 
+  scale_y_continuous("Effective R") + 
+  scale_x_continuous("Delay (symptomatic passive detection)") + 
+  scale_color_discrete("P(detected |  symptomatic)")
+```
+
+
