@@ -25,7 +25,7 @@ The goal of tti is to facilitate the recursive calculation of infection proporti
 You can install the development version of tti from GitHub with:
 
 ``` r
-devtools::install_github("HopkinsIDD/covid_test_isolate/tti")
+devtools::install_github("HopkinsIDD/tti")
 ```
 
 ## Example
