@@ -33,3 +33,7 @@ test_that("PQC elements must be positive", {
            Qhpa = 0, Qq = 0, Cs = 0, Ca = 0)
   expect_error(check_pqc(pqc), "All elements of `pqc` must be positive")
 })
+
+test_that("PQC can't be missing", {
+  expect_error(check_pqc(), "Parameter `` is missing with no default")
+})
