@@ -13,7 +13,6 @@
 ##'    that of infection type of interest
 ##' @return Numeric.  Proportion of infections of type of interested that
 ##'    are detected
-##' @export
 get_passive_detect <- function(n_tests, prop_pos, n_infect, alpha) {
   is_positive(n_infect)
   is_positive(n_tests)

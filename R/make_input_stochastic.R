@@ -1,14 +1,14 @@
-#' Create an input dataframe that serve as parameter input for stochastic simulations
+#' Creates an data frame that serves as parameter inputs for stochastic simulations
 #'
 #'
 #' @param nsimulations number of stochastic simulations
 #' @param input_list list of input parameters with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q
 #' @param input_vartype list of input parameter variable types with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q. Currently supported character options are "proportion", "R_overdispersed", "uniform", "poisson", "fixed"
 #'
-#' @return dataframe
+#' @return data frame
 #' @export
 #'
-make_input_stochastic <- function(nsimulations, input_list, input_vartype) {
+get_stochastic_input <- function(nsimulations, input_list, input_vartype) {
   if (length(input_list) != 17) {
     stop("You have not specified the correct number of variables. Please include: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q.")
   }
