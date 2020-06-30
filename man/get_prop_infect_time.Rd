@@ -4,12 +4,13 @@
 \alias{get_prop_infect_time}
 \title{Calculate proportion of the infectious period reduced}
 \usage{
-get_prop_infect_time(delay, offset = 2.31, shape = 3, rate = 0.69)
+get_prop_infect_time(delay, offset = -2.31, shape = 3, rate = 0.69)
 }
 \arguments{
 \item{delay}{Numeric greater than 0. Time from symptom onset to detection}
 
-\item{offset}{Numeric. Offset. Default is 2.31}
+\item{offset}{Numeric. Offset of infectiousness compared to symptoms onset.
+Default is -2.31.}
 
 \item{shape}{Numeric. Shape of the gamma distribution of infectious period.
 Default is 3.}

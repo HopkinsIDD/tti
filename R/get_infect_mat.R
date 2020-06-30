@@ -32,14 +32,19 @@
 #'     cases's symptom onset to quarantine of contacts.
 #'     Default: 3.
 #' @param t_incubation Positive numeric value. The estimated average
-#'     incubation time. Default: 5.1.
-#' @param ... Optional arguments to pass to [`get_prop_infect_time()`] to
-#'   calculate the distribution of the infectious period.
+#'     incubation time. Default: 5.5.
+#' @param offset Numeric. Offset of infectiousness compared to symptoms onset.
+#'     Default is -2.31.
+#' @param shape Numeric. Shape of the gamma distribution of infectious period.
+#'    Default is 3.
+#' @param rate Numeric. Rate of the gamma distribution of infectious period.
+#'    Default is 0.69.
 #' @return Matrix
 #' @export
 get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
                            t_ps = 3, t_pa = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
-                           t_qha = 3, t_q = 3, t_incubation = 5.1, ...) {
+                           t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
+                           shape = 3, rate = 0.69) {
   is_probability(alpha)
   is_probability(eta)
   is_positive(R)
@@ -52,13 +57,25 @@ get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
   is_positive(t_qha)
   is_positive(t_q)
 
-  gamma_ps <- get_prop_infect_time(t_ps, ...)
-  gamma_pa <- get_prop_infect_time(t_pa, ...)
-  gamma_qcs <- get_prop_infect_time(t_qcs - t_incubation, ...)
-  gamma_qca <- get_prop_infect_time(t_qca - t_incubation, ...)
-  gamma_qhs <- get_prop_infect_time(t_qhs - t_incubation, ...)
-  gamma_qha <- get_prop_infect_time(t_qha - t_incubation, ...)
-  gamma_q <- get_prop_infect_time(t_q - t_incubation, ...)
+  gamma_ps <- get_prop_infect_time(
+    t_ps, offset = offset, shape = shape, rate = rate)
+  gamma_pa <- get_prop_infect_time(
+    t_pa, offset = offset, shape = shape, rate = rate)
+  gamma_qcs <- get_prop_infect_time(
+    t_qcs - (t_incubation + (shape / rate) + offset),
+    shape = shape, rate = rate, offset = offset)
+  gamma_qca <- get_prop_infect_time(
+    t_qca - (t_incubation + (shape / rate) + offset),
+    shape = shape, rate = rate, offset = offset)
+  gamma_qhs <- get_prop_infect_time(
+    t_qhs - (t_incubation + (shape / rate) + offset),
+    shape = shape, rate = rate, offset = offset)
+  gamma_qha <- get_prop_infect_time(
+    t_qha - (t_incubation + (shape / rate) + offset),
+    shape = shape, rate = rate, offset = offset)
+  gamma_q <- get_prop_infect_time(
+    t_q - (t_incubation + (shape / rate) + offset),
+    shape = shape, rate = rate, offset = offset)
 
   R_s <- R / ((alpha * kappa) - alpha + 1)
   R_a <- (kappa * R) / ((alpha * kappa) - alpha + 1)

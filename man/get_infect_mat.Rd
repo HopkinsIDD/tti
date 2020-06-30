@@ -6,7 +6,8 @@
 \usage{
 get_infect_mat(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5,
   nu = 4, t_ps = 3, t_pa = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
-  t_qha = 3, t_q = 3, t_incubation = 5.1, ...)
+  t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
+  shape = 3, rate = 0.69)
 }
 \arguments{
 \item{alpha}{Numeric value between 0 and 1. The probability of an asymptomatic
@@ -51,10 +52,16 @@ cases's symptom onset to quarantine of contacts.
 Default: 3.}
 
 \item{t_incubation}{Positive numeric value. The estimated average
-incubation time. Default: 5.1.}
+incubation time. Default: 5.5.}
 
-\item{...}{Optional arguments to pass to \code{\link[=get_prop_infect_time]{get_prop_infect_time()}} to
-calculate the distribution of the infectious period.}
+\item{offset}{Numeric. Offset of infectiousness compared to symptoms onset.
+Default is -2.31.}
+
+\item{shape}{Numeric. Shape of the gamma distribution of infectious period.
+Default is 3.}
+
+\item{rate}{Numeric. Rate of the gamma distribution of infectious period.
+Default is 0.69.}
 }
 \value{
 Matrix

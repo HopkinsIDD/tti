@@ -64,7 +64,7 @@ test_that("get_r_effective works, change t_pa", {
 })
 
 test_that("get_r_effective works, change t_qcs", {
-  param <- 4
+  param <- 6
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.1, Qhps = 0.1, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(t_qcs = param)
@@ -75,7 +75,7 @@ test_that("get_r_effective works, change t_qcs", {
 })
 
 test_that("get_r_effective works, change t_qca", {
-  param <- 4
+  param <- 6
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.1, Qhps = 0.1, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(t_qca = param)
@@ -86,7 +86,7 @@ test_that("get_r_effective works, change t_qca", {
 })
 
 test_that("get_r_effective works, change t_qhs", {
-  param <- 4
+  param <- 6
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.1, Qhps = 0.1, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(t_qhs = param)
@@ -97,7 +97,7 @@ test_that("get_r_effective works, change t_qhs", {
 })
 
 test_that("get_r_effective works, change t_qha", {
-  param <- 4
+  param <- 6
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.1, Qhps = 0.1, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(t_qha = param)
@@ -108,7 +108,7 @@ test_that("get_r_effective works, change t_qha", {
 })
 
 test_that("get_r_effective works, change t_q", {
-  param <- 4
+  param <- 6
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.1, Qhps = 0.1, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(t_q = param)
@@ -119,7 +119,7 @@ test_that("get_r_effective works, change t_q", {
 })
 
 test_that("get_r_effective works, change incubation", {
-  param <- 4
+  param <- 2
   pqc <- c(Ps = 0.2, Pa = 0.1, Qcps = 0.1, Qhps = 0.1, Qcpa = 0.1, Qhpa = 0.1,
            Qq = 0.15, Cs = 0.1, Ca = 0.05)
   inf <- get_infect_mat(t_incubation = param)
