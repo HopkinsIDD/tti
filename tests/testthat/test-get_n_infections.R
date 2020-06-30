@@ -9,4 +9,3 @@ test_that("get_n_infections errors if not proportion", {
 test_that("get_n_infections errors if negative number of rests", {
   expect_error(get_n_infections(-1, 0.2))
 })
-

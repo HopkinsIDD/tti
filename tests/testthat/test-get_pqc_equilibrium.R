@@ -10,14 +10,18 @@ test_that("PQC equilibrium with only symptomatic cases", {
 
 test_that("PQC equilibrium with no detection", {
   p <- get_pqc_equilibrium(rho_a = 0, rho_s = 0)
-  expect_equal(sum(p[["Ps"]], p[["Pa"]], p[["Qcps"]], p[["Qhps"]],
-                   p[["Qcpa"]], p[["Qhpa"]]), 0)
+  expect_equal(sum(
+    p[["Ps"]], p[["Pa"]], p[["Qcps"]], p[["Qhps"]],
+    p[["Qcpa"]], p[["Qhpa"]]
+  ), 0)
 })
 
 test_that("PQC equilibrium with no detection, 50% asymptomatic ", {
   p <- get_pqc_equilibrium(rho_a = 0, rho_s = 0, alpha = 0.5)
-  expect_equal(sum(p[["Ps"]], p[["Pa"]], p[["Qcps"]], p[["Qhps"]],
-                   p[["Qcpa"]], p[["Qhpa"]]), 0)
+  expect_equal(sum(
+    p[["Ps"]], p[["Pa"]], p[["Qcps"]], p[["Qhps"]],
+    p[["Qcpa"]], p[["Qhpa"]]
+  ), 0)
   expect_equal(p[["Cs"]], 0.5)
   expect_equal(p[["Ca"]], 0.5)
 })

@@ -58,24 +58,33 @@ get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
   is_positive(t_q)
 
   gamma_ps <- get_prop_infect_time(
-    t_ps, offset = offset, shape = shape, rate = rate)
+    t_ps,
+    offset = offset, shape = shape, rate = rate
+  )
   gamma_pa <- get_prop_infect_time(
-    t_pa, offset = offset, shape = shape, rate = rate)
+    t_pa,
+    offset = offset, shape = shape, rate = rate
+  )
   gamma_qcs <- get_prop_infect_time(
     t_qcs - (t_incubation + (shape / rate) + offset),
-    shape = shape, rate = rate, offset = offset)
+    shape = shape, rate = rate, offset = offset
+  )
   gamma_qca <- get_prop_infect_time(
     t_qca - (t_incubation + (shape / rate) + offset),
-    shape = shape, rate = rate, offset = offset)
+    shape = shape, rate = rate, offset = offset
+  )
   gamma_qhs <- get_prop_infect_time(
     t_qhs - (t_incubation + (shape / rate) + offset),
-    shape = shape, rate = rate, offset = offset)
+    shape = shape, rate = rate, offset = offset
+  )
   gamma_qha <- get_prop_infect_time(
     t_qha - (t_incubation + (shape / rate) + offset),
-    shape = shape, rate = rate, offset = offset)
+    shape = shape, rate = rate, offset = offset
+  )
   gamma_q <- get_prop_infect_time(
     t_q - (t_incubation + (shape / rate) + offset),
-    shape = shape, rate = rate, offset = offset)
+    shape = shape, rate = rate, offset = offset
+  )
 
   R_s <- R / ((alpha * kappa) - alpha + 1)
   R_a <- (kappa * R) / ((alpha * kappa) - alpha + 1)

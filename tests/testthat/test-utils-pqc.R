@@ -3,8 +3,10 @@ test_that("PQC only takes a vector that sums to 1", {
     Ps = 1, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0,
     Cs = 0.8, Ca = 0.2
   )
-  expect_error(check_pqc(pqc_bad),
-  "Parameter `pqc_bad` must be a named vector that sums to 1.")
+  expect_error(
+    check_pqc(pqc_bad),
+    "Parameter `pqc_bad` must be a named vector that sums to 1."
+  )
 })
 
 test_that("PQC must be named vector", {
@@ -29,8 +31,10 @@ test_that("PQC can be misordered, and will be reordered", {
 })
 
 test_that("PQC elements must be positive", {
-  pqc <- c(Ps = -1, Pa = 2, Qcps = 0, Qhps = 0, Qcpa = 0,
-           Qhpa = 0, Qq = 0, Cs = 0, Ca = 0)
+  pqc <- c(
+    Ps = -1, Pa = 2, Qcps = 0, Qhps = 0, Qcpa = 0,
+    Qhpa = 0, Qq = 0, Cs = 0, Ca = 0
+  )
   expect_error(check_pqc(pqc), "All elements of `pqc` must be positive")
 })
 

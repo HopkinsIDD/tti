@@ -17,6 +17,8 @@
 #' @export
 get_prop_infect_time <- function(delay, offset = -2.31,
                                  shape = 3, rate = 0.69) {
-  if (delay < offset) {return (0)}
+  if (delay < offset) {
+    return(0)
+  }
   stats::pgamma(delay - offset, shape = shape, rate = rate)
 }
