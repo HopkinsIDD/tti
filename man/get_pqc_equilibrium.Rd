@@ -4,9 +4,13 @@
 \alias{get_pqc_equilibrium}
 \title{Calculate the Passive-Quarantine-Community vector equilibrium}
 \usage{
-get_pqc_equilibrium(init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa =
-  0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca = 0.2), tolerance = 1e-04,
-  burn_in = 10, ...)
+get_pqc_equilibrium(
+  init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca
+    = 0.2),
+  tolerance = 1e-04,
+  burn_in = 10,
+  ...
+)
 }
 \arguments{
 \item{init}{Named vector of initial values indicating proportion infected in

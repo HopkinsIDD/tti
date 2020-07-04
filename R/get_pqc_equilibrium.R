@@ -55,6 +55,13 @@ get_pqc_equilibrium <- function(init = c(
     pqc <- pqc_next
     pqc_next <- (pqc %*% infect_detect) / sum(pqc %*% infect_detect)
     iter <- iter + 1
+
+    if (is.nan(sum(pqc_next))) {
+      ## Reassign this so it doesn't break the condition evaluation in the next loop
+      pqc_next <- pqc 
+      ## Break out of the loop on the next iteration
+      iter <- burn_in + 1
+    }
   }
   categories <- c("Ps", "Pa", "Qcps", "Qhps", "Qcpa", "Qhpa", "Qq", "Cs", "Ca")
   stats::setNames(as.vector(pqc_next), categories)

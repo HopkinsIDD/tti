@@ -4,8 +4,14 @@
 \alias{get_detect_mat}
 \title{Create detect matrix}
 \usage{
-get_detect_mat(alpha = 0.2, omega_c = 0.5, omega_h = 0.5,
-  omega_q = 0.5, rho_s = 0.1, rho_a = 0.05)
+get_detect_mat(
+  alpha = 0.2,
+  omega_c = 0.5,
+  omega_h = 0.5,
+  omega_q = 0.5,
+  rho_s = 0.1,
+  rho_a = 0.05
+)
 }
 \arguments{
 \item{alpha}{Numeric value between 0 and 1. The probability of an asymptomatic

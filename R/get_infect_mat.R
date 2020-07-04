@@ -14,24 +14,24 @@
 #'     contact compared to a community contact. Default: 4.
 #' @param t_ps Positive numeric value. Time delay from symptom onset to
 #'     isolation in passively detected symptomatic person. Default: 3.
-#' @param t_pa Positive numeric value. Time delay from symptom onset to
+#' @param t_pa Non-negative numeric value. Time delay from symptom onset to
 #'     isolation in passively detected asymptomatic person. Default: 3.
-#' @param t_qcs Positive numeric value. Time delay from symptomatic index
+#' @param t_qcs Non-negative numeric value. Time delay from symptomatic index
 #'     cases's symptom onset to quarantine of community contacts.
 #'     Default: 3.
-#' @param t_qca Positive numeric value. Time delay from asymptomatic index
+#' @param t_qca Non-negative numeric value. Time delay from asymptomatic index
 #'     cases's symptom onset to quarantine of community contacts.
 #'     Default: 3.
-#' @param t_qhs Positive numeric value. Time delay from symptomatic index
+#' @param t_qhs Non-negative numeric value. Time delay from symptomatic index
 #'     cases's symptom onset to quarantine of household contacts.
 #'     Default: 3.
-#' @param t_qha Positive numeric value. Time delay from asymptomatic index
+#' @param t_qha Non-negative numeric value. Time delay from asymptomatic index
 #'     cases's symptom onset to quarantine of community contacts.
 #'     Default: 3.
-#' @param t_q Positive numeric value. Time delay from quarantined index
+#' @param t_q Non-negative numeric value. Time delay from quarantined index
 #'     cases's symptom onset to quarantine of contacts.
 #'     Default: 3.
-#' @param t_incubation Positive numeric value. The estimated average
+#' @param t_incubation Non-negative numeric value. The estimated average
 #'     incubation time. Default: 5.5.
 #' @param offset Numeric. Offset of infectiousness compared to symptoms onset.
 #'     Default is -2.31.

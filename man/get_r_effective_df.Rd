@@ -4,10 +4,25 @@
 \alias{get_r_effective_df}
 \title{Create a data frame with R effective, varying parameters}
 \usage{
-get_r_effective_df(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5,
-  nu = 4, t_ps = 3, t_pa = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
-  t_qha = 3, t_q = 3, omega_c = 0.5, omega_h = 0.5,
-  omega_q = 0.5, rho_s = 0.1, rho_a = 0.05)
+get_r_effective_df(
+  alpha = 0.2,
+  R = 2.5,
+  kappa = 0.5,
+  eta = 0.5,
+  nu = 4,
+  t_ps = 3,
+  t_pa = 3,
+  t_qcs = 3,
+  t_qca = 3,
+  t_qhs = 3,
+  t_qha = 3,
+  t_q = 3,
+  omega_c = 0.5,
+  omega_h = 0.5,
+  omega_q = 0.5,
+  rho_s = 0.1,
+  rho_a = 0.05
+)
 }
 \arguments{
 \item{alpha}{Numeric value or vector of numeric values between 0 and 1.

@@ -4,8 +4,12 @@
 \alias{get_proportions_df}
 \title{Create a data frame with the proportion infected over time}
 \usage{
-get_proportions_df(duration, init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0,
-  Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca = 0.2), ...)
+get_proportions_df(
+  duration,
+  init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca
+    = 0.2),
+  ...
+)
 }
 \arguments{
 \item{duration}{Numeric value greater than 0. The number of iterations you
