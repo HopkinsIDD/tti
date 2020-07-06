@@ -53,5 +53,21 @@ get_stochastic_input <- function(nsimulations, input_list, input_vartype) {
   names(rc) <- names(input_list)
   rc$sim_id <- 1:nrow(rc)
 
+  ## check that user did not mis-specify proportions
+  proportions_vars <- c("alpha", "omega_c", "omega_h", "omega_q", "rho_s", "rho_a", "eta")
+  check_prop <- dplyr::select(rc, !!proportions_vars)
+  if(any(check_prop>1) | any(check_prop<0) | any(is.na(check_prop))){
+    props <- paste(proportions_vars, collapse = ", ")
+    stop(glue::glue("You have mis-specified one of the parameters that is supposed to be a proportion: {props}. Please check input_list and input_vartype."))
+  }
+
+  ## check that user did not mis-specify non-negative values
+  nonneg_vars <- c("R", "kappa", "nu", "t_ps", "t_pa", "t_qcs", "t_qhs", "t_qha", "t_q")
+  check_nonneg <- dplyr::select(rc, !!nonneg_vars)
+  if(any(check_nonneg<0)){
+    nonnegs <- paste(check_nonneg, collaps = ", ")
+    stop(glue::glue("You have mis-specified one of the parameters that is supposed to be non-negative: {nonnegs}. Please check input_list and input_vartype."))
+  }
+
   return(rc)
 }
