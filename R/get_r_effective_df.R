@@ -156,6 +156,9 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ps, t_pa, t_qcs, 
     omega_h = omega_h,
     omega_q = omega_q,
     rho_s = rho_s,
-    rho_a = rho_a
+    rho_a = rho_a,
+    offset = offset,
+    shape = shape,
+    rate = rate
   )
 }
