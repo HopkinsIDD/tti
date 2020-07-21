@@ -4,10 +4,24 @@
 \alias{get_infect_mat}
 \title{Create infect matrix}
 \usage{
-get_infect_mat(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5,
-  nu = 4, t_ps = 3, t_pa = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
-  t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
-  shape = 3, rate = 0.69)
+get_infect_mat(
+  alpha = 0.2,
+  R = 2.5,
+  kappa = 0.5,
+  eta = 0.5,
+  nu = 4,
+  t_ps = 3,
+  t_pa = 3,
+  t_qcs = 3,
+  t_qca = 3,
+  t_qhs = 3,
+  t_qha = 3,
+  t_q = 3,
+  t_incubation = 5.5,
+  offset = -2.31,
+  shape = 1.65,
+  rate = 0.5
+)
 }
 \arguments{
 \item{alpha}{Numeric value between 0 and 1. The probability of an asymptomatic
@@ -58,10 +72,10 @@ incubation time. Default: 5.5.}
 Default is -2.31.}
 
 \item{shape}{Numeric. Shape of the gamma distribution of infectious period.
-Default is 3.}
+Default is 1.65.}
 
 \item{rate}{Numeric. Rate of the gamma distribution of infectious period.
-Default is 0.69.}
+Default is 0.5.}
 }
 \value{
 Matrix

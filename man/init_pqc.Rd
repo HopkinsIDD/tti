@@ -4,8 +4,17 @@
 \alias{init_pqc}
 \title{Create a named vector to use as a Passive-Quarantine-Community input}
 \usage{
-init_pqc(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0,
-  Qhpa = 0, Qq = 0, Cs = 0.8, Ca = 0.2)
+init_pqc(
+  Ps = 0,
+  Pa = 0,
+  Qcps = 0,
+  Qhps = 0,
+  Qcpa = 0,
+  Qhpa = 0,
+  Qq = 0,
+  Cs = 0.8,
+  Ca = 0.2
+)
 }
 \arguments{
 \item{Ps}{Proportion of population that are symptomatic and passively
