@@ -66,26 +66,26 @@ get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
     offset = offset, shape = shape, rate = rate
   )
 
-  second_gen_shape <- shape + (((shape / rate) + t_incubation + offset) * rate)
+  second_gen_shape <- shape + (shape + (t_incubation + offset) * rate)
 
   gamma_qcs <- get_prop_infect_time(
-    t_qcs - t_incubation,
+    t_qcs,
     shape = second_gen_shape, rate = rate, offset = 0
   )
   gamma_qca <- get_prop_infect_time(
-    t_qca - t_incubation,
+    t_qca,
     shape = second_gen_shape, rate = rate, offset = 0
   )
   gamma_qhs <- get_prop_infect_time(
-    t_qhs - t_incubation,
+    t_qhs,
     shape = second_gen_shape, rate = rate, offset = 0
   )
   gamma_qha <- get_prop_infect_time(
-    t_qha - t_incubation,
+    t_qha,
     shape = second_gen_shape, rate = rate, offset = 0
   )
   gamma_q <- get_prop_infect_time(
-    t_q - t_incubation,
+    t_q,
     shape = second_gen_shape, rate = rate, offset = 0
   )
 
