@@ -39,9 +39,9 @@ pqc <- get_pqc_equilibrium(init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0,
                              Ca = 0.2))
 pqc
 #>           Ps           Pa         Qcps         Qhps         Qcpa         Qhpa 
-#> 7.724739e-02 9.655923e-03 6.475167e-03 2.590067e-02 4.046979e-04 1.618792e-03 
+#> 0.0768155690 0.0096019461 0.0074079812 0.0296319249 0.0004629988 0.0018519953 
 #>           Qq           Cs           Ca 
-#> 8.336454e-06 6.952265e-01 1.834625e-01
+#> 0.0004504876 0.6913401207 0.1824369763
 ```
 
 From this, we can calculate the proportion quarantined using the
@@ -49,14 +49,14 @@ From this, we can calculate the proportion quarantined using the
 
 ``` r
 get_prop_quarantined(pqc)
-#> [1] 0.03440766
+#> [1] 0.03980539
 ```
 
 We can then calculate the \(R_{effective}\) under this scenario.
 
 ``` r
 get_r_effective(pqc)
-#> [1] 2.347541
+#> [1] 2.361799
 ```
 
 The function `get_proportions_df()` will generate a data frame with four
@@ -85,7 +85,7 @@ d
 #>  7     1          0           2.5  Qq      
 #>  8     1          0.8         2.5  Cs      
 #>  9     1          0.2         2.5  Ca      
-#> 10     2          0.08        2.43 Ps      
+#> 10     2          0.08        2.46 Ps      
 #> # … with 80 more rows
 ```
 
@@ -109,15 +109,15 @@ r
 #>        t r_effective
 #>    <dbl>       <dbl>
 #>  1     1        2.5 
-#>  2     2        2.43
-#>  3     3        2.35
-#>  4     4        2.35
-#>  5     5        2.35
-#>  6     6        2.35
-#>  7     7        2.35
-#>  8     8        2.35
-#>  9     9        2.35
-#> 10    10        2.35
+#>  2     2        2.46
+#>  3     3        2.36
+#>  4     4        2.36
+#>  5     5        2.36
+#>  6     6        2.36
+#>  7     7        2.36
+#>  8     8        2.36
+#>  9     9        2.36
+#> 10    10        2.36
 ```
 
 ``` r
@@ -142,16 +142,16 @@ d
 #> # A tibble: 42 x 18
 #>    r_effective alpha     R kappa   eta    nu  t_ps  t_pa t_qcs t_qca t_qhs t_qha
 #>          <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1        2.40   0.2   2.5   0.5   0.5     4     1     3     3     3     3     3
-#>  2        2.41   0.2   2.5   0.5   0.5     4     2     3     3     3     3     3
-#>  3        2.42   0.2   2.5   0.5   0.5     4     3     3     3     3     3     3
-#>  4        2.42   0.2   2.5   0.5   0.5     4     4     3     3     3     3     3
+#>  1        2.41   0.2   2.5   0.5   0.5     4     1     3     3     3     3     3
+#>  2        2.42   0.2   2.5   0.5   0.5     4     2     3     3     3     3     3
+#>  3        2.43   0.2   2.5   0.5   0.5     4     3     3     3     3     3     3
+#>  4        2.43   0.2   2.5   0.5   0.5     4     4     3     3     3     3     3
 #>  5        2.43   0.2   2.5   0.5   0.5     4     5     3     3     3     3     3
 #>  6        2.43   0.2   2.5   0.5   0.5     4     6     3     3     3     3     3
-#>  7        2.43   0.2   2.5   0.5   0.5     4     7     3     3     3     3     3
-#>  8        2.43   0.2   2.5   0.5   0.5     4     8     3     3     3     3     3
-#>  9        2.43   0.2   2.5   0.5   0.5     4     9     3     3     3     3     3
-#> 10        2.43   0.2   2.5   0.5   0.5     4    10     3     3     3     3     3
+#>  7        2.44   0.2   2.5   0.5   0.5     4     7     3     3     3     3     3
+#>  8        2.44   0.2   2.5   0.5   0.5     4     8     3     3     3     3     3
+#>  9        2.44   0.2   2.5   0.5   0.5     4     9     3     3     3     3     3
+#> 10        2.44   0.2   2.5   0.5   0.5     4    10     3     3     3     3     3
 #> # … with 32 more rows, and 6 more variables: t_q <dbl>, omega_c <dbl>,
 #> #   omega_h <dbl>, omega_q <dbl>, rho_s <dbl>, rho_a <dbl>
 ```
