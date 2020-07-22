@@ -42,6 +42,12 @@
 #'    detection given symptomatic. Default: 0.1.
 #' @param rho_a Numeric value or vector of numeric values between 0 and 1. The probability of passive
 #'    detection given asymptomatic. Default: 0.05.
+#' @param offset Numeric. Offset of infectiousness compared to symptoms onset.
+#'     Default is -2.31.
+#' @param shape Numeric. Shape of the gamma distribution of infectious period.
+#'    Default is 1.65.
+#' @param rate Numeric. Rate of the gamma distribution of infectious period.
+#'    Default is 0.5.
 #'
 #' @return Data frame with 18 columns:
 #'   * `r_effective`: The R effective value
@@ -62,6 +68,7 @@
 #'   * `omega_q`
 #'   * `rho_s`
 #'   * `rho_a`
+#'
 #' @export
 #'
 #' @examples
@@ -71,8 +78,8 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                t_qha = 3, t_q = 3, omega_c = 0.5,
                                omega_h = 0.5,
                                omega_q = 0.5,
-                               rho_s = 0.1,
-                               rho_a = 0.05) {
+                               rho_s = 0.1, rho_a = 0.05, offset = -2.31,
+                               shape = 1.65, rate = 0.5) {
   lst <- expand.grid(
     alpha = alpha,
     R = R,
@@ -90,14 +97,17 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
     omega_h = omega_h,
     omega_q = omega_q,
     rho_s = rho_s,
-    rho_a = rho_a
+    rho_a = rho_a,
+    offset = offset,
+    shape = shape,
+    rate = rate
   )
 
   purrr::pmap_df(lst, get_r_effective_df_one)
 }
 get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca,
                                    t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, rho_s,
-                                   rho_a, offset = 2.31, shape = 3, rate = 0.69) {
+                                   rho_a, offset, shape, rate) {
   pqc <- get_pqc_equilibrium(
     alpha = alpha,
     R = R,
@@ -156,9 +166,6 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ps, t_pa, t_qcs, 
     omega_h = omega_h,
     omega_q = omega_q,
     rho_s = rho_s,
-    rho_a = rho_a,
-    offset = offset,
-    shape = shape,
-    rate = rate
+    rho_a = rho_a
   )
 }

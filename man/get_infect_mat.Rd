@@ -19,8 +19,8 @@ get_infect_mat(
   t_q = 3,
   t_incubation = 5.5,
   offset = -2.31,
-  shape = 3,
-  rate = 0.69
+  shape = 1.65,
+  rate = 0.5
 )
 }
 \arguments{
@@ -72,10 +72,10 @@ incubation time. Default: 5.5.}
 Default is -2.31.}
 
 \item{shape}{Numeric. Shape of the gamma distribution of infectious period.
-Default is 3.}
+Default is 1.65.}
 
 \item{rate}{Numeric. Rate of the gamma distribution of infectious period.
-Default is 0.69.}
+Default is 0.5.}
 }
 \value{
 Matrix

@@ -21,7 +21,10 @@ get_r_effective_df(
   omega_h = 0.5,
   omega_q = 0.5,
   rho_s = 0.1,
-  rho_a = 0.05
+  rho_a = 0.05,
+  offset = -2.31,
+  shape = 1.65,
+  rate = 0.5
 )
 }
 \arguments{
@@ -81,6 +84,15 @@ detection given symptomatic. Default: 0.1.}
 
 \item{rho_a}{Numeric value or vector of numeric values between 0 and 1. The probability of passive
 detection given asymptomatic. Default: 0.05.}
+
+\item{offset}{Numeric. Offset of infectiousness compared to symptoms onset.
+Default is -2.31.}
+
+\item{shape}{Numeric. Shape of the gamma distribution of infectious period.
+Default is 1.65.}
+
+\item{rate}{Numeric. Rate of the gamma distribution of infectious period.
+Default is 0.5.}
 }
 \value{
 Data frame with 18 columns:

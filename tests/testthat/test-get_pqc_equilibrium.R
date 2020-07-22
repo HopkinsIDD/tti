@@ -39,21 +39,21 @@ test_that("PQC equilibrium with no effective contact tracing, 100% household tra
 })
 
 test_that("PQC equilibrium with complete detection", {
-  p <- get_pqc_equilibrium(rho_s = 1, rho_a = 1) 
+  p <- get_pqc_equilibrium(rho_s = 1, rho_a = 1)
   expect_equal(sum(
     p[["Ca"]], p[["Cs"]]
     ), 0)
 })
 
 test_that("PQC equilibrium with complete detection and no isolation", {
-  p <- get_pqc_equilibrium(rho_s = 1, rho_a = 1, omega_c = 0, omega_h = 0, omega_q = 0) 
+  p <- get_pqc_equilibrium(rho_s = 1, rho_a = 1, omega_c = 0, omega_h = 0, omega_q = 0)
   expect_equal(sum(
     p[["Ps"]], p[["Pa"]]
     ), 1)
 })
 
 test_that("PQC equilibrium with complete detection and contact tracing", {
-  p <- get_pqc_equilibrium(rho_s = 1, rho_a = 1, omega_c = 1, omega_h = 1) 
+  p <- get_pqc_equilibrium(rho_s = 1, rho_a = 1, omega_c = 1, omega_h = 1, omega_q = 1)
   expect_equal(sum(
     p[["Qcps"]], p[["Qhps"]], p[["Qcpa"]], p[["Qhpa"]], p[["Qq"]]
     ), 1)
