@@ -9,24 +9,26 @@
 #' @export
 #'
 get_stochastic_input <- function(nsimulations, input_list, input_vartype) {
-  if (length(input_list) != 17) {
-    stop("You have not specified the correct number of variables. Please include: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q.")
+  allvars <- c("alpha", "omega_c", "omega_h", "omega_q", "rho_s", "rho_a", "R", "kappa", "eta", "nu", "t_ps", "t_pa", "t_qcs", "t_qca", "t_qhs", "t_qha", "t_q")
+  varnames <- names(input_list)
+  if (!all(allvars %in% varnames)) {
+    stop("You have not specified all of the necessary parameters. Please provide explicit values for: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q.")
   }
-  if (length(input_list) != length(input_vartype)) {
-    stop("You have not provided the same number of variables in input_list and input_vartype")
+  if (length(input_vartype) < length(allvars)) {
+    warning("You have not provided an input_vartype for all parameters. Unspecified input_vartypes will default to a fixed value.")
   }
 
   param_list <- lapply(1:length(input_list), function(i) {
     varname <- names(input_list)[i]
     varvalue <- input_list[[varname]]
-    vartype <- input_vartype[[varname]]
+    vartype <- ifelse(!is.null(input_vartype[[varname]]), input_vartype[[varname]], "fixed")
 
     if (vartype == "proportion") {
       warning(glue::glue("Assuming that {varname} is the probability parameter for a binomial distribution, we examined the number of successes in 1000 events and divided the random draw by 1000 to get a stochastic parameter value for {varname} centered around {varvalue}."))
       rc <- stats::rbinom(nsimulations, 1000, prob = varvalue) / 1000
     } else if (vartype == "R_overdispersed") {
 
-      ## set k to a value between .04 and .2 (https://cmmid.github.io/topics/covid19/overdispersion-from-outbreaksize.html)
+      ## set k to a value between .04 and .2 (https://cmmid.github.io/topics/covid19/overdispersion-from-outbreaksize.html) ## May want to make this tunable in the future (instead of fixed at .12)
       sz <- varvalue / ((1 / .12) - 1)
       warning(glue::glue("Assuming that {varname} is drawn from a negative binomial distribution with mu {varvalue} and size {sz}. Minimum value is set to 0.05."))
       rc <- pmax(stats::rnbinom(nsimulations, mu = varvalue, size = sz), .05)
