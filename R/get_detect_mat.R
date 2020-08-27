@@ -5,15 +5,15 @@
 #' @param alpha Numeric value between 0 and 1. The probability of an asymptomatic
 #'    infection. Default: 0.2.
 #' @param omega_c Numeric value between 0 and 1. The probability of being traced and
-#'    quarantined given community contact of a person. Default: 0.5.
+#'    quarantined given infected community contact of isolated case. Default: 0.5.
 #' @param omega_h Numeric value between 0 and 1. The probability of being traced and
-#'    quarantined given household contact of a person. Default: 0.5.
+#'    quarantined given infected household contact of isolated case. Default: 0.5.
 #' @param omega_q Numeric value between 0 and 1. The probability of being traced and
-#'    quarantined given quarantine contact of a person. Default: 0.5.
-#' @param rho_s Numeric value between 0 and 1. The probability of passive
-#'    detection given symptomatic. Default: 0.1.
-#' @param rho_a Numeric value between 0 and 1. The probability of passive
-#'    detection given asymptomatic. Default: 0.05.
+#'    quarantined given infected contact of quarantined person. Default: 0.5.
+#' @param rho_s Numeric value between 0 and 1. The probability of detection 
+#'    and isolation given symptomatic. Default: 0.1.
+#' @param rho_a Numeric value between 0 and 1. The probability of detection
+#'    and isolation given asymptomatic. Default: 0.05.
 #'
 #' @return Matrix
 #' @export

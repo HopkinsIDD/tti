@@ -12,10 +12,10 @@
 #'    contact. Default: 0.5
 #' @param nu Positive numeric value. Relative risk of infection for a household
 #'     contact compared to a community contact. Default: 4.
-#' @param t_ps Positive numeric value. Time delay from symptom onset to
-#'     isolation in passively detected symptomatic person. Default: 3.
-#' @param t_pa Non-negative numeric value. Time delay from symptom onset to
-#'     isolation in passively detected asymptomatic person. Default: 3.
+#' @param t_ds Non-negative numeric value. Time delay from symptom onset to
+#'     isolation in detected symptomatic person. Default: 3.
+#' @param t_da Non-negative numeric value. Time delay from symptom onset to
+#'     isolation in detected asymptomatic person. Default: 3.
 #' @param t_qcs Non-negative numeric value. Time delay from symptomatic index
 #'     cases's symptom onset to quarantine of community contacts.
 #'     Default: 3.
@@ -42,27 +42,27 @@
 #' @return Matrix
 #' @export
 get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
-                           t_ps = 3, t_pa = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
+                           t_ds = 3, t_da = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
                            t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
                            shape = 1.65, rate = 0.5) {
   is_probability(alpha)
   is_probability(eta)
   is_positive(R)
   is_positive(nu)
-  is_positive(t_ps)
-  is_positive(t_pa)
+  is_positive(t_ds)
+  is_positive(t_da)
   is_positive(t_qcs)
   is_positive(t_qca)
   is_positive(t_qhs)
   is_positive(t_qha)
   is_positive(t_q)
 
-  gamma_ps <- get_prop_infect_time(
-    t_ps,
+  gamma_ds <- get_prop_infect_time(
+    t_ds,
     offset = offset, shape = shape, rate = rate
   )
-  gamma_pa <- get_prop_infect_time(
-    t_pa,
+  gamma_da <- get_prop_infect_time(
+    t_da,
     offset = offset, shape = shape, rate = rate
   )
 
@@ -102,8 +102,8 @@ get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
 
   matrix(
     c(
-      (1 - eta) * gamma_ps * R_sc, eta * gamma_ps * R_sh, 0, 0, 0, 0,
-      0, 0, (1 - eta) * gamma_pa * R_ac, eta * gamma_pa * R_ah, 0, 0,
+      (1 - eta) * gamma_ds * R_sc, eta * gamma_ds * R_sh, 0, 0, 0, 0,
+      0, 0, (1 - eta) * gamma_da * R_ac, eta * gamma_da * R_ah, 0, 0,
       0, 0, 0, 0, gamma_qcs * R, 0,
       0, 0, 0, 0, gamma_qhs * R, 0,
       0, 0, 0, 0, gamma_qca * R, 0,

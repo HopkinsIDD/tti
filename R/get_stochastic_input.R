@@ -2,17 +2,17 @@
 #'
 #'
 #' @param nsimulations number of stochastic simulations
-#' @param input_list list of input parameters with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q
-#' @param input_vartype list of input parameter variable types with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q. Currently supported character options are "proportion", "R_overdispersed", "uniform", "poisson", "fixed"
+#' @param input_list list of input parameters with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca, t_qhs, t_qha, t_q
+#' @param input_vartype list of input parameter variable types with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca, t_qhs, t_qha, t_q. Currently supported character options are "proportion", "R_overdispersed", "uniform", "poisson", "fixed"
 #'
 #' @return data frame
 #' @export
 #'
 get_stochastic_input <- function(nsimulations, input_list, input_vartype) {
-  allvars <- c("alpha", "omega_c", "omega_h", "omega_q", "rho_s", "rho_a", "R", "kappa", "eta", "nu", "t_ps", "t_pa", "t_qcs", "t_qca", "t_qhs", "t_qha", "t_q")
+  allvars <- c("alpha", "omega_c", "omega_h", "omega_q", "rho_s", "rho_a", "R", "kappa", "eta", "nu", "t_ds", "t_da", "t_qcs", "t_qca", "t_qhs", "t_qha", "t_q")
   varnames <- names(input_list)
   if (!all(allvars %in% varnames)) {
-    stop("You have not specified all of the necessary parameters. Please provide explicit values for: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q.")
+    stop("You have not specified all of the necessary parameters. Please provide explicit values for: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca, t_qhs, t_qha, t_q.")
   }
   if (length(input_vartype) < length(allvars)) {
     warning("You have not provided an input_vartype for all parameters. Unspecified input_vartypes will default to a fixed value.")
@@ -64,7 +64,7 @@ get_stochastic_input <- function(nsimulations, input_list, input_vartype) {
   }
 
   ## check that user did not mis-specify non-negative values
-  nonneg_vars <- c("R", "kappa", "nu", "t_ps", "t_pa", "t_qcs", "t_qhs", "t_qha", "t_q")
+  nonneg_vars <- c("R", "kappa", "nu", "t_ds", "t_da", "t_qcs", "t_qhs", "t_qha", "t_q")
   check_nonneg <- dplyr::select(rc, !!nonneg_vars)
   if(any(check_nonneg<0)){
     nonnegs <- paste(check_nonneg, collaps = ", ")
