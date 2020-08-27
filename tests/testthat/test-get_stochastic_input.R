@@ -58,7 +58,7 @@ params_vartype_good <- list(
     omega_c = "proportion",
     omega_h = "proportion",
     omega_q = "proportion",
-    rho_s = "proportion", 
+    rho_s = "proportion",
     rho_a = "proportion",
     R = "R_overdispersed",
     kappa = "proportion",
@@ -80,7 +80,7 @@ params_vartype_bad2 <- list(
     omega_c = "proportion",
     omega_h = "proportion",
     omega_q = "proportion",
-    rho_s = "proportion", 
+    rho_s = "proportion",
     rho_a = "proportion",
     R = "R_overdispersed",
     kappa = "proportion",
@@ -98,7 +98,7 @@ params_vartype_bad3 <- list(
     omega_c = "proportion",
     omega_h = "proportion",
     omega_q = "proportion",
-    rho_s = "proportion", 
+    rho_s = "proportion",
     rho_a = "proportion",
     R = "R_overdispersed",
     kappa = "proportion",
@@ -112,32 +112,32 @@ params_vartype_bad3 <- list(
     t_qha = "gamma",
     t_q = "fixed")
 
-test_that("Stop if input_list arguments are not specified correctly", {
-  expect_error(get_stochastic_input(
-    2, params_bad, params_vartype_bad
-    ), "specified the correct number") 
-})
+# test_that("Stop if input_list arguments are not specified correctly", {
+#   expect_error(get_stochastic_input(
+#     2, params_bad, params_vartype_bad
+#     ), "specified the correct number")
+# })
 
-test_that("Stop if input arguments are not specified correctly", {
-  expect_error(get_stochastic_input(
-    2, params_good, params_vartype_bad
-    ), "not provided the same number") 
-})
+# test_that("Stop if input arguments are not specified correctly", {
+#   expect_warning(get_stochastic_input(
+#     2, params_good, params_vartype_bad
+#     ), "not provided the same number")
+# })
 
 test_that("Warning if invalid distribution specified", {
   expect_warning(get_stochastic_input(
     2, params_good, params_vartype_bad3
-    ), "Assuming a fixed value") 
+    ), "Assuming a fixed value")
 })
 
 test_that("Stop if input proportion is mis-specified", {
   expect_error(get_stochastic_input(
     2, params_bad2, params_vartype_good
-    ), "supposed to be a proportion") 
+    ), "supposed to be a proportion")
 })
 
 test_that("Stop if input non-negative is mis-specified", {
   expect_error(get_stochastic_input(
     2, params_bad3, params_vartype_bad3
-    ), "supposed to be non-negative") 
+    ), "supposed to be non-negative")
 })
