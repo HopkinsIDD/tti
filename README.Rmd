@@ -30,7 +30,7 @@ You can install the development version of tti from GitHub with:
 devtools::install_github("HopkinsIDD/tti")
 ```
 
-## Example
+## Examples
 
 ```{r}
 library(tti)
@@ -40,8 +40,8 @@ The `get_pqc_equilibrium()` function will iterate through the passive-quarantine
 
 ```{r}
 pqc <- get_pqc_equilibrium(init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0,
-                             Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8,
-                             Ca = 0.2))
+                                    Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8,
+                                    Ca = 0.2))
 pqc
 ```
 
@@ -110,5 +110,28 @@ ggplot(d, aes(x = t_ps, y = r_effective, color = factor(rho_s))) +
   scale_x_continuous("Delay (symptomatic passive detection)") + 
   scale_color_discrete("P(detected |  symptomatic)")
 ```
+
+## Base functions
+
+We also include some low-level functions that take any sized compartment vector along with a conformable infection matrix and detection matrix. These are meant for more experienced users familiar with the underlying mathematical model.
+
+```{r}
+infect <- matrix(c(2.5, 0, 0,
+                   0, 1, 0,
+                   0, 0, 2.5), nrow = 3, byrow = TRUE)
+detect <- matrix(c(0.1, 0.5, 0.4,
+                   0.02, 0.9, 0.08,
+                   0.2, 0, 0.8), nrow = 3, byrow = TRUE)
+pqc <- get_pqc_equilibrium_base(init = c(0, 0, 1), 
+                                infect = infect,
+                                detect = detect
+                                )
+pqc
+```
+
+```{r}
+get_r_effective_base(pqc, infect)
+```
+
 
 

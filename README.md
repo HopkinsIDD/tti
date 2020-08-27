@@ -22,7 +22,7 @@ You can install the development version of tti from GitHub with:
 devtools::install_github("HopkinsIDD/tti")
 ```
 
-## Example
+## Examples
 
 ``` r
 library(tti)
@@ -35,8 +35,8 @@ specified by the `tolerance` parameter. For example, here we start with
 
 ``` r
 pqc <- get_pqc_equilibrium(init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0,
-                             Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8,
-                             Ca = 0.2))
+                                    Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8,
+                                    Ca = 0.2))
 pqc
 #>           Ps           Pa         Qcps         Qhps         Qcpa         Qhpa 
 #> 0.0768155690 0.0096019461 0.0074079812 0.0296319249 0.0004629988 0.0018519953 
@@ -170,3 +170,31 @@ ggplot(d, aes(x = t_ps, y = r_effective, color = factor(rho_s))) +
 ```
 
 <img src="man/figures/README-eff-r-sim-1.png" width="100%" />
+
+## Base functions
+
+We also include some low-level functions that take any sized compartment
+vector along with a conformable infection matrix and detection matrix.
+These are meant for more experienced users familiar with the underlying
+mathematical model.
+
+``` r
+infect <- matrix(c(2.5, 0, 0,
+                   0, 1, 0,
+                   0, 0, 2.5), nrow = 3, byrow = TRUE)
+detect <- matrix(c(0.1, 0.5, 0.4,
+                   0.02, 0.9, 0.08,
+                   0.2, 0, 0.8), nrow = 3, byrow = TRUE)
+pqc <- get_pqc_equilibrium_base(init = c(0, 0, 1), 
+                                infect = infect,
+                                detect = detect
+                                )
+pqc
+#>           [,1]     [,2]      [,3]
+#> [1,] 0.1691082 0.154459 0.6764328
+```
+
+``` r
+get_r_effective_base(pqc, infect)
+#> [1] 2.268311
+```
