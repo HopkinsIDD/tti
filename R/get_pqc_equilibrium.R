@@ -1,6 +1,6 @@
 #' Calculate the Passive-Quarantine-Community vector equilibrium
 #'
-#' This function iterates through the Passive-Quarantine-Community (PQR) vector
+#' This function iterates through the Passive-Quarantine-Community (PQC) vector
 #'   until an equilibrium is reached at a given tolerance.
 #'
 #' @template init
@@ -46,9 +46,34 @@ get_pqc_equilibrium <- function(init = c(
 
   detect <- do.call(get_detect_mat, detect_args)
   infect <- do.call(get_infect_mat, infect_args)
-  infect_detect <- infect %*% detect
+
+  pqc_next <- get_pqc_equilibrium_base(init, infect, detect, tolerance, burn_in)
+
+  categories <- c("Ps", "Pa", "Qcps", "Qhps", "Qcpa", "Qhpa", "Qq", "Cs", "Ca")
+  stats::setNames(as.vector(pqc_next), categories)
+}
+
+#' Calculate the vector equilibrium
+#'
+#' This low-level function iterates through the initial PQC vector
+#'   until an equilibrium is reached at a given tolerance.
+#'
+#' @param init Initial values for PQC compartments. All elements of this vector
+#'   should sum to 1.
+#' @param infect Matrix. The infection matrix.
+#' @param detect Matrix. The detection matrix.
+#' @param tolerance Numeric value between 0 and 1. Tolerance to determine whether an
+#'    equilibrium has been met. Default: 1e-4
+#' @param burn_in Numeric positive value. Minimum number of iterations to run.
+#'    Default: 10.
+#'
+#' @return The proportions at equilibrium.
+#' @export
+#'
+get_pqc_equilibrium_base <- function(init, infect, detect, tolerance = 1e-4, burn_in = 10) {
 
   pqc <- as.numeric(init)
+  infect_detect <- infect %*% detect
   pqc_next <- (pqc %*% infect_detect) / sum(pqc %*% infect_detect)
   iter <- 1
   while (iter < burn_in || mean(abs(pqc - pqc_next)) > tolerance) {
@@ -58,11 +83,11 @@ get_pqc_equilibrium <- function(init = c(
 
     if (is.nan(sum(pqc_next))) {
       ## Reassign this so it doesn't break the condition evaluation in the next loop
-      pqc_next <- pqc 
+      pqc_next <- pqc
       ## Break out of the loop on the next iteration
       iter <- burn_in + 1
     }
   }
-  categories <- c("Ps", "Pa", "Qcps", "Qhps", "Qcpa", "Qhpa", "Qq", "Cs", "Ca")
-  stats::setNames(as.vector(pqc_next), categories)
+  pqc_next
 }
+

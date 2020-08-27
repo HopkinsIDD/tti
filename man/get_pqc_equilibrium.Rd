@@ -35,6 +35,6 @@ A named vector, the Passive-Quarantine-Community proportions at
 equilibrium.
 }
 \description{
-This function iterates through the Passive-Quarantine-Community (PQR) vector
+This function iterates through the Passive-Quarantine-Community (PQC) vector
 until an equilibrium is reached at a given tolerance.
 }
