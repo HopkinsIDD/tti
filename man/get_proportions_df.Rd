@@ -6,7 +6,7 @@
 \usage{
 get_proportions_df(
   duration,
-  init = c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca
+  init = c(Ds = 0, Da = 0, Qcds = 0, Qhds = 0, Qcda = 0, Qhda = 0, Qq = 0, Cs = 0.8, Ca
     = 0.2),
   ...
 )
@@ -16,11 +16,11 @@ get_proportions_df(
 would like to examine.}
 
 \item{init}{Named vector of initial values indicating proportion infected in
-each passive-community-quarantine category. All elements of the vector
+each detected-community-quarantine category. All elements of the vector
 must sum to 1. Must include the names:
-\code{Ps}, \code{Pa}, \code{Qcps}, \code{Qhps}, \code{Qcpa}, \code{Qhpa}, \code{Qq}, \code{Cs}, \code{Ca}.
-Default: \code{c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca = 0.2)}
-See \code{\link[=init_pqc]{init_pqc()}} to generate this vector.}
+\code{Ds}, \code{Da}, \code{Qcds}, \code{Qhds}, \code{Qcda}, \code{Qhda}, \code{Qq}, \code{Cs}, \code{Ca}.
+Default: \code{c(Ds = 0, Da = 0, Qcds = 0, Qhds = 0, Qcda = 0, Qhda = 0, Qq = 0, Cs = 0.8, Ca = 0.2)}
+See \code{\link[=init_dqc]{init_dqc()}} to generate this vector.}
 
 \item{...}{Optional parameters to pass to \code{\link[=get_infect_mat]{get_infect_mat()}} and
 \code{\link[=get_detect_mat]{get_detect_mat()}}. See \code{\link[=get_infect_mat]{get_infect_mat()}} and \code{\link[=get_detect_mat]{get_detect_mat()}}

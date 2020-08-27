@@ -4,18 +4,18 @@
 \alias{get_prop_quarantined}
 \title{Calculate the proportion quarantined}
 \usage{
-get_prop_quarantined(pqc)
+get_prop_quarantined(dqc)
 }
 \arguments{
-\item{pqc}{Numeric vector of Passive-Quarantine-Community proportions.
+\item{dqc}{Numeric vector of Detected-Quarantine-Community proportions.
 The components of this vector should sum to one. The order of the
-components should be:  \code{Ps}, \code{Pa}, \code{Qcps}, \code{Qcpa}, \code{Qhps}, \code{Qhpa},
-\code{Qq}, \code{Cs}, \code{Ca}. See \code{\link[=init_pqc]{init_pqc()}} to generate this vector.}
+components should be:  \code{Ds}, \code{Da}, \code{Qcds}, \code{Qcda}, \code{Qhds}, \code{Qhda},
+\code{Qq}, \code{Cs}, \code{Ca}. See \code{\link[=init_dqc]{init_dqc()}} to generate this vector.}
 }
 \value{
 Numeric value. Proportion quarantined.
 }
 \description{
-Calculates the proportion quarantined from a Passive-Quarantine-Community
+Calculates the proportion quarantined from a Detected-Quarantine-Community
 vector
 }

@@ -8,7 +8,7 @@
 #'
 #' @return Numeric value. Proportion detected and isolated.
 #' @export
-get_prop_passive <- function(dqc) {
+get_prop_isolated <- function(dqc) {
   dqc <- check_dqc(dqc)
 
   dqc[["Ds"]] + dqc[["Da"]]

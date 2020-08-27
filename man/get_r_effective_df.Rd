@@ -10,8 +10,8 @@ get_r_effective_df(
   kappa = 0.5,
   eta = 0.5,
   nu = 4,
-  t_ps = 3,
-  t_pa = 3,
+  t_ds = 3,
+  t_da = 3,
   t_qcs = 3,
   t_qca = 3,
   t_qhs = 3,
@@ -44,29 +44,29 @@ contact. Default: 0.5}
 \item{nu}{Positive numeric value or vector of positive numeric values. Relative risk of infection for a household
 contact compared to a community contact. Default: 4.}
 
-\item{t_ps}{Positive numeric value. Time delay from symptom onset to
-isolation in passively detected symptomatic person. Default: 3.}
+\item{t_ds}{Non-negative numeric value. Time delay from symptom onset to
+isolation in detected symptomatic person. Default: 3.}
 
-\item{t_pa}{Positive numeric value. Time delay from symptom onset to
-isolation in passively detected asymptomatic person. Default: 3.}
+\item{t_da}{Non-negative numeric value. Time delay from symptom onset to
+isolation in detected asymptomatic person. Default: 3.}
 
-\item{t_qcs}{Positive numeric value. Time delay from symptomatic index
+\item{t_qcs}{Non-negative numeric value. Time delay from symptomatic index
 cases's symptom onset to quarantine of community contacts.
 Default: 3.}
 
-\item{t_qca}{Positive numeric value. Time delay from asymptomatic index
+\item{t_qca}{Non-negative numeric value. Time delay from asymptomatic index
 cases's symptom onset to quarantine of community contacts.
 Default: 3.}
 
-\item{t_qhs}{Positive numeric value. Time delay from symptomatic index
+\item{t_qhs}{Non-negative numeric value. Time delay from symptomatic index
 cases's symptom onset to quarantine of household contacts.
 Default: 3.}
 
-\item{t_qha}{Positive numeric value. Time delay from asymptomatic index
+\item{t_qha}{Non-negative numeric value. Time delay from asymptomatic index
 cases's symptom onset to quarantine of community contacts.
 Default: 3.}
 
-\item{t_q}{Positive numeric value. Time delay from quarantined index
+\item{t_q}{Non-negative numeric value. Time delay from quarantined index
 cases's symptom onset to quarantine of contacts.
 Default: 3.}
 
@@ -79,11 +79,11 @@ quarantined given household contact of a person. Default: 0.5.}
 \item{omega_q}{Numeric value or vector of numeric values between 0 and 1. The probability of being traced and
 quarantined given quarantine contact of a person. Default: 0.5.}
 
-\item{rho_s}{Numeric value or vector of numeric values between 0 and 1. The probability of passive
-detection given symptomatic. Default: 0.1.}
+\item{rho_s}{Numeric value or vector of numeric values between 0 and 1. The probability of
+detection and isolation given symptomatic. Default: 0.1.}
 
-\item{rho_a}{Numeric value or vector of numeric values between 0 and 1. The probability of passive
-detection given asymptomatic. Default: 0.05.}
+\item{rho_a}{Numeric value or vector of numeric values between 0 and 1. The probability of
+detection and isolation given asymptomatic. Default: 0.05.}
 
 \item{offset}{Numeric. Offset of infectiousness compared to symptoms onset.
 Default is -2.31.}
@@ -103,8 +103,8 @@ Data frame with 18 columns:
 \item \code{kappa}
 \item \code{eta}
 \item \code{nu}
-\item \code{t_ps}
-\item \code{t_pa}
+\item \code{t_ds}
+\item \code{t_da}
 \item \code{t_qcs}
 \item \code{t_qca}
 \item \code{t_qhs}

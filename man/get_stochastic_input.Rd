@@ -9,9 +9,9 @@ get_stochastic_input(nsimulations, input_list, input_vartype)
 \arguments{
 \item{nsimulations}{number of stochastic simulations}
 
-\item{input_list}{list of input parameters with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q}
+\item{input_list}{list of input parameters with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca, t_qhs, t_qha, t_q}
 
-\item{input_vartype}{list of input parameter variable types with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ps, t_pa, t_qcs, t_qca, t_qhs, t_qha, t_q. Currently supported character options are "proportion", "R_overdispersed", "uniform", "poisson", "fixed"}
+\item{input_vartype}{list of input parameter variable types with named elements: alpha, omega_c, omega_h, omega_q, rho_s, rho_a, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca, t_qhs, t_qha, t_q. Currently supported character options are "proportion", "R_overdispersed", "uniform", "poisson", "fixed"}
 }
 \value{
 data frame

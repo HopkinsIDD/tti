@@ -16,5 +16,5 @@ Numeric. Number of potential infections that can be detected with
 testing
 }
 \description{
-Calculates number of potential infections detected from surveillance
+Calculates number of potential infections detected from testing + surveillance
 }
