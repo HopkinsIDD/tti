@@ -93,7 +93,7 @@ get_dqc_stoch <- function(init = c(
 #'   individuals). Default 1000.
 #' @param theta Non-negative numeric value. Shape parameter for overdispersion 
 #'    in R. Default 0.2.
-#' @return Named vector of intermediate infection states
+#' @return Vector of intermediate infection states
 #' @export
 #'
 get_intermediate_inf <- function(dqc, infect, n_inf = 1000, theta = 0.2) {
@@ -101,26 +101,14 @@ get_intermediate_inf <- function(dqc, infect, n_inf = 1000, theta = 0.2) {
   dqc <- check_dqc(dqc)
   dqc <- round(dqc * n_inf)
  
-  # infections derived from Ps
-  Idsc <- sum(stats::rnbinom(dqc["Ds"], mu=infect[1,1], size=theta))
-  Idsh <- sum(stats::rnbinom(dqc["Ds"], mu=infect[1,2], size=theta))
+  tmp <- rep(0, ncol(infect))
   
-  # infections derive from Pa
-  Idac <- sum(stats::rnbinom(dqc["Da"], mu=infect[2,3], size=theta))
-  Idah <- sum(stats::rnbinom(dqc["Da"], mu=infect[2,4], size=theta))
+  for(i in 1:length(dqc)){
+    tmp <- tmp +
+            rowSums(matrix(stats::rnbinom(dqc[i]*ncol(infect), mu=infect[i,], size=theta), nrow=ncol(infect)))
+  }
   
-  # infections derived from Qhs, Qha, Qcs, Qca, Qq
-  Iq <- sum(stats::rnbinom(dqc["Qcds"], mu=infect[3,5], size=theta)) +
-          sum(stats::rnbinom(dqc["Qhds"], mu=infect[4,5], size=theta)) +
-          sum(stats::rnbinom(dqc["Qcda"], mu=infect[5,5], size=theta)) +
-          sum(stats::rnbinom(dqc["Qhda"], mu=infect[6,5], size=theta)) +
-          sum(stats::rnbinom(dqc["Qq"], mu=infect[7,5], size=theta)) 
-
-  # infections derived from Cs
-  Ic <- sum(stats::rnbinom(dqc["Cs"], mu=infect[8,6], size=theta)) +
-          sum(stats::rnbinom(dqc["Ca"], mu=infect[9,6], size=theta))
-  
-  return(int = c(Idsc=Idsc, Idsh=Idsh, Idac=Idac, Idah=Idah, Iq=Iq, Ic=Ic))
+  return(tmp)
 }
 
 

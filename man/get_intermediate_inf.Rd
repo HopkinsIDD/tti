@@ -19,7 +19,7 @@ individuals). Default 1000.}
 in R. Default 0.2.}
 }
 \value{
-Named vector of intermediate infection states
+Vector of intermediate infection states
 }
 \description{
 This low-level function stochastically derives the intermediate infections derived
