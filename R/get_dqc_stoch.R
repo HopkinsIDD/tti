@@ -47,18 +47,33 @@ get_dqc_stoch <- function(init = c(
   infect <- do.call(get_infect_mat, infect_args)
   stoch_args$infect <- infect # there has to be a better way to do this?
   
-  dqc <- init
   categories <- c("Ds", "Da", "Qcds", "Qhds", "Qcda", "Qhda", "Qq", "Cs", "Ca")
+  stoch_args$dqc <- init
   
-  for(i in 1:n_generation){
+  int <- do.call(get_intermediate_inf, stoch_args)
+  while(sum(int)==0){
+    int <- do.call(get_intermediate_inf, stoch_args)
+  }
+  
+  dqc <- rowSums(sapply(1:length(int), function(x, det=detect) stats::rmultinom(1, int[x], det[x,])))
+  dqc <- stats::setNames(dqc / sum(dqc), categories)
+  
+  i=1
+  
+  while(i<n_generation){
     
     stoch_args$dqc <- dqc
     
-    int <- do.call(get_intermediate_inf, stoch_args)
-                   
+    int_new <- do.call(get_intermediate_inf, stoch_args)
+    if(sum(int_new>0)){
+      int <- int_new
+    }
+    
     dqc <- rowSums(sapply(1:length(int), function(x, det=detect) stats::rmultinom(1, int[x], det[x,])))
     
     dqc <- stats::setNames(dqc / sum(dqc), categories)
+    
+    i=i+1
   }
 
   dqc
