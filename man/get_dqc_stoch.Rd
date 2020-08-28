@@ -22,9 +22,9 @@ See \code{\link[=init_dqc]{init_dqc()}} to generate this vector.}
 \item{n_generation}{Numeric positive value. Number of iterations to run.
 Default: 10.}
 
-\item{...}{Optional parameters to pass to \code{\link{get_intermediate_inf}} and
-\code{\link[=get_detect_mat]{get_detect_mat()}}. See \code{\link{get_intermediate_inf}} and \code{\link[=get_detect_mat]{get_detect_mat()}}
-for defaults.}
+\item{...}{Optional parameters to pass to \code{\link{get_infect_mat}},
+\code{\link[=get_detect_mat]{get_detect_mat()}}, and \code{\link{get_intermediate_inf}}. See \code{\link{get_infect_mat}},
+\code{\link[=get_detect_mat]{get_detect_mat()}}, and \code{\link{get_intermediate_inf}} for defaults.}
 }
 \value{
 A named vector, the Detected-Quarantine-Community proportions after

@@ -4,93 +4,22 @@
 \alias{get_intermediate_inf}
 \title{Calculate the intermediate infection states}
 \usage{
-get_intermediate_inf(
-  dqc,
-  n_inf = 1000,
-  alpha = 0.2,
-  R = 2.5,
-  kappa = 0.5,
-  eta = 0.5,
-  nu = 4,
-  t_ds = 3,
-  t_da = 3,
-  t_qcs = 3,
-  t_qca = 3,
-  t_qhs = 3,
-  t_qha = 3,
-  t_q = 3,
-  t_incubation = 5.5,
-  offset = -2.31,
-  shape = 1.65,
-  rate = 0.5,
-  theta = 0.2
-)
+get_intermediate_inf(dqc, infect, n_inf = 1000, theta = 0.2)
 }
 \arguments{
 \item{dqc}{Current values for DQC compartments. All elements of this vector
 should sum to 1.}
 
+\item{infect}{INFECT matrix returned by \code{\link{get_infect_mat}}}
+
 \item{n_inf}{Number of infections (or effective population size of infected
 individuals). Default 1000.}
-
-\item{alpha}{Numeric value between 0 and 1. The probability of an asymptomatic
-infection. Default 0.2.}
-
-\item{R}{Positive numeric value. Reproduction number. Default: 2.5.}
-
-\item{kappa}{Positive numeric value. Relative transmissibility of an
-asymptomatic individual compared to a symptomatic individual.
-Default: 0.5.}
-
-\item{eta}{Numeric value between 0 and 1. Probability contact is a household
-contact. Default: 0.5}
-
-\item{nu}{Positive numeric value. Relative risk of infection for a household
-contact compared to a community contact. Default: 4.}
-
-\item{t_ds}{Non-negative numeric value. Time delay from symptom onset to
-isolation in detected symptomatic person. Default: 3.}
-
-\item{t_da}{Non-negative numeric value. Time delay from symptom onset to
-isolation in detected asymptomatic person. Default: 3.}
-
-\item{t_qcs}{Non-negative numeric value. Time delay from symptomatic index
-cases's symptom onset to quarantine of community contacts.
-Default: 3.}
-
-\item{t_qca}{Non-negative numeric value. Time delay from asymptomatic index
-cases's symptom onset to quarantine of community contacts.
-Default: 3.}
-
-\item{t_qhs}{Non-negative numeric value. Time delay from symptomatic index
-cases's symptom onset to quarantine of household contacts.
-Default: 3.}
-
-\item{t_qha}{Non-negative numeric value. Time delay from asymptomatic index
-cases's symptom onset to quarantine of community contacts.
-Default: 3.}
-
-\item{t_q}{Non-negative numeric value. Time delay from quarantined index
-cases's symptom onset to quarantine of contacts.
-Default: 3.}
-
-\item{t_incubation}{Non-negative numeric value. The estimated average
-incubation time. Default: 5.5.}
-
-\item{offset}{Numeric. Offset of infectiousness compared to symptoms onset.
-Default is -2.31.}
-
-\item{shape}{Numeric. Shape of the gamma distribution of infectious period.
-Default is 1.65.}
-
-\item{rate}{Numeric. Rate of the gamma distribution of infectious period.
-Default is 0.5.}
 
 \item{theta}{Non-negative numeric value. Shape parameter for overdispersion
 in R. Default 0.2.}
 }
 \value{
-The intermediate infection states
+Named vector of intermediate infection states
 }
 \description{
 This low-level function stochastically derives the intermediate infections derived
