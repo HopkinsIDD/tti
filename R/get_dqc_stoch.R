@@ -38,9 +38,10 @@ get_dqc_stoch <- function(init = c(
   infect_args <- dots[names(dots) %in%
     c(
       "alpha", "R", "kappa", "eta", "nu", "t_ds", "t_da", "t_qcs", "t_qca",
-      "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate", "theta"
+      "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate", "theta",
+      "n_inf"
     )]
-
+  
   detect <- do.call(get_detect_mat, detect_args)
   
   dqc <- init
@@ -48,9 +49,9 @@ get_dqc_stoch <- function(init = c(
   
   for(i in 1:n_generation){
     
-    int <- do.call(get_intermediate_inf, c(quote(dqc), n_inf=n_inf, infect_args))
+    int <- do.call(get_intermediate_inf, c(quote(dqc), infect_args))
                    
-    dqc <- rowSums(sapply(1:length(int), function(x, det=detect) rmultinom(1, int[x], det[x,])))
+    dqc <- rowSums(sapply(1:length(int), function(x, det=detect) stats::rmultinom(1, int[x], det[x,])))
     
     dqc <- stats::setNames(dqc / sum(dqc), categories)
   }
@@ -67,7 +68,8 @@ get_dqc_stoch <- function(init = c(
 #'
 #' @param dqc Current values for DQC compartments. All elements of this vector
 #'   should sum to 1.
-#' @param n_inf Number of infections (or effective population size of infected individuals)
+#' @param n_inf Number of infections (or effective population size of infected 
+#'   individuals). Default 1000.
 #' @param alpha Numeric value between 0 and 1. The probability of an asymptomatic
 #'    infection. Default 0.2.
 #' @param R Positive numeric value. Reproduction number. Default: 2.5.
@@ -110,7 +112,7 @@ get_dqc_stoch <- function(init = c(
 #' @return The intermediate infection states
 #' @export
 #'
-get_intermediate_inf <- function(dqc, n_inf, alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
+get_intermediate_inf <- function(dqc, n_inf = 1000, alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
                                  t_ds = 3, t_da = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
                                  t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
                                  shape = 1.65, rate = 0.5, theta=0.2) {
@@ -168,25 +170,25 @@ get_intermediate_inf <- function(dqc, n_inf, alpha = 0.2, R = 2.5, kappa = 0.5, 
   pr_h <- (eta * nu) / ((eta * nu) - eta + 1)
 
   # infections derived from Ps
-  Ids <- rnbinom(dqc["Ds"], mu=gamma_ds*R_s, size=theta)
-  Idsh <- sum(rbinom(length(Ids), Ids, pr_h))
+  Ids <- stats::rnbinom(dqc["Ds"], mu=gamma_ds*R_s, size=theta)
+  Idsh <- sum(stats::rbinom(length(Ids), Ids, pr_h))
   Idsc <- sum(Ids) - Idsh
   
   # infections derive from Pa
-  Ida <- rnbinom(dqc["Da"], mu=gamma_da*R_a, size=theta)
-  Idah <- sum(rbinom(length(Ida), Ida, pr_h))
+  Ida <- stats::rnbinom(dqc["Da"], mu=gamma_da*R_a, size=theta)
+  Idah <- sum(stats::rbinom(length(Ida), Ida, pr_h))
   Idac <- sum(Ida) - Idah
   
   # infections derived from Qhs, Qha, Qcs, Qca, Qq
-  Iq <- sum(rnbinom(dqc["Qcds"], mu=gamma_qcs*R, size=theta)) +
-          sum(rnbinom(dqc["Qhds"], mu=gamma_qhs*R, size=theta)) +
-          sum(rnbinom(dqc["Qcda"], mu=gamma_qca*R, size=theta)) +
-          sum(rnbinom(dqc["Qhda"], mu=gamma_qha*R, size=theta)) +
-          sum(rnbinom(dqc["Qq"], mu=gamma_q*R, size=theta)) 
+  Iq <- sum(stats::rnbinom(dqc["Qcds"], mu=gamma_qcs*R, size=theta)) +
+          sum(stats::rnbinom(dqc["Qhds"], mu=gamma_qhs*R, size=theta)) +
+          sum(stats::rnbinom(dqc["Qcda"], mu=gamma_qca*R, size=theta)) +
+          sum(stats::rnbinom(dqc["Qhda"], mu=gamma_qha*R, size=theta)) +
+          sum(stats::rnbinom(dqc["Qq"], mu=gamma_q*R, size=theta)) 
 
   # infections derived from Cs
-  Ic <- sum(rnbinom(dqc["Cs"], mu=R_s, size=theta)) +
-          sum(rnbinom(dqc["Ca"], mu=R_a, size=theta))
+  Ic <- sum(stats::rnbinom(dqc["Cs"], mu=R_s, size=theta)) +
+          sum(stats::rnbinom(dqc["Ca"], mu=R_a, size=theta))
   
   return(int = c(Idsc=Idsc, Idsh=Idsh, Idac=Idac, Idah=Idah, Iq=Iq, Ic=Ic))
 }

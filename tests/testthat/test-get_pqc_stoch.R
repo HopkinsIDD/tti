@@ -22,8 +22,7 @@ test_that("DQC with no detection, 50% asymptomatic ", {
     p[["Ds"]], p[["Da"]], p[["Qcds"]], p[["Qhds"]],
     p[["Qcda"]], p[["Qhda"]]
   ), 0)
-  expect_equal(p[["Cs"]], 0.5)
-  expect_equal(p[["Ca"]], 0.5)
+  expect_equal(p[["Cs"]]+p[["Ca"]], 1)
 })
 
 test_that("DQC with 100% household traced, 0% community", {
