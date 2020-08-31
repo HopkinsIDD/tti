@@ -1,8 +1,8 @@
-test_that("init_pqc works", {
+test_that("init_dqc works", {
   expect_equal(
-    init_pqc(1, 2, 3, 4, 5, 6, 7, 8, 9),
+    init_dqc(1, 2, 3, 4, 5, 6, 7, 8, 9),
     c(
-      Ps = 1, Pa = 2, Qcps = 3, Qhps = 4, Qcpa = 5, Qhpa = 6, Qq = 7,
+      Ds = 1, Da = 2, Qcds = 3, Qhds = 4, Qcda = 5, Qhda = 6, Qq = 7,
       Cs = 8, Ca = 9
     )
   )

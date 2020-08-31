@@ -25,5 +25,5 @@ are detected
 }
 \description{
 Function to calculate proportion of infections
-detected through surveillance
+detected through testing + surveillance
 }

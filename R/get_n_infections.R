@@ -1,6 +1,6 @@
 ##' Calculate Number of Infections
 ##'
-##' Calculates number of potential infections detected from surveillance
+##' Calculates number of potential infections detected from testing + surveillance
 ##'
 ##' @param n_tests Numeric positive value. Number of tests.
 ##' @param prop_pos Proportion of tests that are returned positive

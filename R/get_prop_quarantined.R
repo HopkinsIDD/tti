@@ -1,14 +1,14 @@
 #' Calculate the proportion quarantined
 #'
-#' Calculates the proportion quarantined from a Passive-Quarantine-Community
+#' Calculates the proportion quarantined from a Detected-Quarantine-Community
 #' vector
 #'
-#' @template pqc
+#' @template dqc
 #'
 #' @return Numeric value. Proportion quarantined.
 #' @export
-get_prop_quarantined <- function(pqc) {
-  pqc <- check_pqc(pqc)
+get_prop_quarantined <- function(dqc) {
+  dqc <- check_dqc(dqc)
 
-  pqc[["Qcps"]] + pqc[["Qcpa"]] + pqc[["Qhps"]] + pqc[["Qhpa"]] + pqc[["Qq"]]
+  dqc[["Qcds"]] + dqc[["Qcda"]] + dqc[["Qhds"]] + dqc[["Qhda"]] + dqc[["Qq"]]
 }

@@ -1,43 +1,43 @@
-test_that("PQC only takes a vector that sums to 1", {
-  pqc_bad <- c(
-    Ps = 1, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0,
+test_that("DQC only takes a vector that sums to 1", {
+  dqc_bad <- c(
+    Ds = 1, Da = 0, Qcds = 0, Qhds = 0, Qcda = 0, Qhda = 0, Qq = 0,
     Cs = 0.8, Ca = 0.2
   )
   expect_error(
-    check_pqc(pqc_bad),
-    "Parameter `pqc_bad` must be a named vector that sums to 1."
+    check_dqc(dqc_bad),
+    "Parameter `dqc_bad` must be a named vector that sums to 1."
   )
 })
 
-test_that("PQC must be named vector", {
-  pqc_bad <- c(1, 0, 0)
-  expect_error(check_pqc(pqc_bad), "Parameter `pqc_bad` must be a named vector")
+test_that("DQC must be named vector", {
+  dqc_bad <- c(1, 0, 0)
+  expect_error(check_dqc(dqc_bad), "Parameter `dqc_bad` must be a named vector")
 })
 
-test_that("PQC can be misordered, and will be reordered", {
-  pqc_misordered <- c(
-    Pa = 0, Ps = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8,
+test_that("DQC can be misordered, and will be reordered", {
+  dqc_misordered <- c(
+    Da = 0, Ds = 0, Qcds = 0, Qhds = 0, Qcda = 0, Qhda = 0, Qq = 0, Cs = 0.8,
     Ca = 0.2
   )
-  pqc_reordered <- check_pqc(pqc_misordered)
-  expect_identical(names(pqc_misordered), c(
-    "Pa", "Ps", "Qcps", "Qhps", "Qcpa",
-    "Qhpa", "Qq", "Cs", "Ca"
+  dqc_reordered <- check_dqc(dqc_misordered)
+  expect_identical(names(dqc_misordered), c(
+    "Da", "Ds", "Qcds", "Qhds", "Qcda",
+    "Qhda", "Qq", "Cs", "Ca"
   ))
-  expect_identical(names(pqc_reordered), c(
-    "Ps", "Pa", "Qcps", "Qhps", "Qcpa",
-    "Qhpa", "Qq", "Cs", "Ca"
+  expect_identical(names(dqc_reordered), c(
+    "Ds", "Da", "Qcds", "Qhds", "Qcda",
+    "Qhda", "Qq", "Cs", "Ca"
   ))
 })
 
-test_that("PQC elements must be positive", {
-  pqc <- c(
-    Ps = -1, Pa = 2, Qcps = 0, Qhps = 0, Qcpa = 0,
-    Qhpa = 0, Qq = 0, Cs = 0, Ca = 0
+test_that("DQC elements must be positive", {
+  dqc <- c(
+    Ds = -1, Da = 2, Qcds = 0, Qhds = 0, Qcda = 0,
+    Qhda = 0, Qq = 0, Cs = 0, Ca = 0
   )
-  expect_error(check_pqc(pqc), "All elements of `pqc` must be positive")
+  expect_error(check_dqc(dqc), "All elements of `dqc` must be positive")
 })
 
-test_that("PQC can't be missing", {
-  expect_error(check_pqc(), "Parameter `` is missing with no default")
+test_that("DQC can't be missing", {
+  expect_error(check_dqc(), "Parameter `` is missing with no default")
 })

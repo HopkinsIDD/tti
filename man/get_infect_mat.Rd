@@ -10,8 +10,8 @@ get_infect_mat(
   kappa = 0.5,
   eta = 0.5,
   nu = 4,
-  t_ps = 3,
-  t_pa = 3,
+  t_ds = 3,
+  t_da = 3,
   t_qcs = 3,
   t_qca = 3,
   t_qhs = 3,
@@ -39,11 +39,11 @@ contact. Default: 0.5}
 \item{nu}{Positive numeric value. Relative risk of infection for a household
 contact compared to a community contact. Default: 4.}
 
-\item{t_ps}{Positive numeric value. Time delay from symptom onset to
-isolation in passively detected symptomatic person. Default: 3.}
+\item{t_ds}{Non-negative numeric value. Time delay from symptom onset to
+isolation in detected symptomatic person. Default: 3.}
 
-\item{t_pa}{Non-negative numeric value. Time delay from symptom onset to
-isolation in passively detected asymptomatic person. Default: 3.}
+\item{t_da}{Non-negative numeric value. Time delay from symptom onset to
+isolation in detected asymptomatic person. Default: 3.}
 
 \item{t_qcs}{Non-negative numeric value. Time delay from symptomatic index
 cases's symptom onset to quarantine of community contacts.

@@ -1,6 +1,6 @@
-test_that("cat_pqc works", {
+test_that("cat_dqc works", {
   expect_equal(
-    cat_pqc(),
-    "c(Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0, Qhpa = 0, Qq = 0, Cs = 0.8, Ca = 0.2)"
+    cat_dqc(),
+    "c(Ds = 0, Da = 0, Qcds = 0, Qhds = 0, Qcda = 0, Qhda = 0, Qq = 0, Cs = 0.8, Ca = 0.2)"
   )
 })

@@ -15,10 +15,10 @@
 #' @export
 #'
 get_proportions_df_stochastic <- function(duration, init = c(
-                                            Ps = 0, Pa = 0, Qcps = 0, Qhps = 0, Qcpa = 0,
-                                            Qhpa = 0, Qq = 0, Cs = 0.8, Ca = 0.2
+                                            Ds = 0, Da = 0, Qcds = 0, Qhds = 0, Qcda = 0,
+                                            Qhda = 0, Qq = 0, Cs = 0.8, Ca = 0.2
                                           ), ...) {
-  init <- check_pqc(init)
+  init <- check_dqc(init)
   dots <- list(...)
 
   detect_args <- dots[names(dots) %in%
@@ -26,11 +26,11 @@ get_proportions_df_stochastic <- function(duration, init = c(
 
   infect_args <- dots[names(dots) %in%
     c(
-      "alpha", "R", "kappa", "eta", "nu", "t_ps", "t_pa", "t_qcs", "t_qca",
+      "alpha", "R", "kappa", "eta", "nu", "t_ds", "t_da", "t_qcs", "t_qca",
       "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate"
     )]
 
-  categories <- c("Ps", "Pa", "Qcps", "Qhps", "Qcpa", "Qhpa", "Qq", "Cs", "Ca")
+  categories <- c("Ds", "Da", "Qcds", "Qhds", "Qcda", "Qhda", "Qq", "Cs", "Ca")
 
   detect <- do.call(get_detect_mat, detect_args)
   infect <- do.call(get_infect_mat, infect_args)
@@ -45,15 +45,15 @@ get_proportions_df_stochastic <- function(duration, init = c(
 
   time <- 2
   while (time <= duration) {
-    pqc_star <-
+    dqc_star <-
       as.numeric(d$prop_infected[d$t == time - 1] %*% infect_detect)
-    pqc <- as.numeric(stats::rmultinom(1, 1000, pqc_star) / 1000)
-    names(pqc) <- names(pqc_star)
+    dqc <- as.numeric(stats::rmultinom(1, 1000, dqc_star) / 1000)
+    names(dqc) <- names(dqc_star)
     d <- tibble::add_row(
       d,
       t = time,
-      prop_infected =  pqc / sum(pqc),
-      r_effective = sum((pqc / sum(pqc)) %*% infect),
+      prop_infected =  dqc / sum(dqc),
+      r_effective = sum((dqc / sum(dqc)) %*% infect),
       category = categories
     )
     time <- time + 1

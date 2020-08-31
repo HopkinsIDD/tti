@@ -1,7 +1,7 @@
 ##' Calculate passive detection rates for infections
 ##'
 ##' Function to calculate proportion of infections
-##'    detected through surveillance
+##'    detected through testing + surveillance
 ##'
 ##' @param n_tests Numeric positive value. Number of tests devoted to
 ##'    detection of infection type of interest

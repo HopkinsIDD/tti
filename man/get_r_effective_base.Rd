@@ -4,15 +4,15 @@
 \alias{get_r_effective_base}
 \title{Get R Effective}
 \usage{
-get_r_effective_base(pqc, infect)
+get_r_effective_base(dqc, infect)
 }
 \arguments{
-\item{pqc}{Values for PQC compartments. All elements of this vector
+\item{dqc}{Values for DQC compartments. All elements of this vector
 should sum to 1.}
 
 \item{infect}{Matrix. The infection matrix.}
 }
 \description{
-This low-level function calculates R effective from a PQC vector and
+This low-level function calculates R effective from a DQC vector and
 infection matrix
 }
