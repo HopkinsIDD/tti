@@ -2,6 +2,8 @@
 #'
 #' This function allows you to input numeric scalars or vectors for each
 #'    parameter to examine how the effective R will vary across configurations.
+#'    Two values (`stoch`, `n_iter`) require single values.
+#'    
 #' @param alpha Numeric value or vector of numeric values between 0 and 1.
 #'    The probability of an asymptomatic infection. Default 0.2.
 #' @param R Positive numeric value or vector of positive numeric values.
@@ -48,8 +50,18 @@
 #'    Default is 1.65.
 #' @param rate Numeric. Rate of the gamma distribution of infectious period.
 #'    Default is 0.5.
+#' @param stoch Logical. Whether to run stochastic model with overdispersion.
+#'    Default is FALSE.
+#' @param theta Non-negative numeric. Required only if `stoch`=TRUE. Overdispersion 
+#'    parameter for negative binomial distribution. Default NULL.
+#' @param n_inf Non-negative numeric. Required only if `stoch`=TRUE. Number of 
+#'    infections (or effective population size of infected individuals).
+#'    Default NULL.
+#' @param n_iter Non-negative numeric. Required only if `stoch`=TRUE. Number of 
+#'    iterations of stochastic model to run for each unique parameter value. 
+#'    Default NULL.
 #'
-#' @return Data frame with 18 columns:
+#' @return Data frame with columns:
 #'   * `r_effective`: The R effective value
 #'   * `alpha`
 #'   * `R`
@@ -68,19 +80,51 @@
 #'   * `omega_q`
 #'   * `rho_s`
 #'   * `rho_a`
+#'   * `theta` if `stoch`=TRUE
+#'   * `n_inf` if `stoch`=TRUE
 #'
 #' @export
 #'
 #' @examples
 #' get_r_effective_df(alpha = c(0.1, 0.2), kappa = c(0.5, 0.6))
+#' get_r_effective_df(stoch=TRUE, theta=c(0.1, 0.3), n_inf=100, n_iter=100)
 get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
                                t_ds = 3, t_da = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
                                t_qha = 3, t_q = 3, omega_c = 0.5,
                                omega_h = 0.5,
                                omega_q = 0.5,
                                rho_s = 0.1, rho_a = 0.05, offset = -2.31,
-                               shape = 1.65, rate = 0.5) {
-  lst <- expand.grid(
+                               shape = 1.65, rate = 0.5, 
+                               stoch=FALSE, theta=NULL, n_inf=NULL, n_iter=NULL) {
+  
+  if(length(n_iter)>1 | length(stoch)>1){
+    stop_glue(
+      "A single value must be provided for `stoch` and `n_iter`"
+    )
+  }
+  
+  if(stoch & (is.null(theta) | is.null(n_inf) | is.null(n_iter))){
+    stop_glue(
+      "Values must be provided for `theta`, `n_inf`, and `n_iter`",
+      "to run a stochastic model."
+    )
+  }
+  
+  if(!stoch & (length(theta)>0 | length(n_inf)>0 | length(n_iter)>0)){
+    warning("Parameters `theta`, `n_inf`, and `n_iter` are ignored in deterministic model. 
+  Please use `stoch`=TRUE for stochastic model")
+    theta=NULL
+    n_inf=NULL
+    n_iter=NULL
+  }
+  
+  if(stoch){
+    iterations = 1:n_iter
+  }else{
+    iterations = NULL
+  }
+  
+  lst <- tidyr::expand_grid(
     alpha = alpha,
     R = R,
     kappa = kappa,
@@ -100,11 +144,19 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
     rho_a = rho_a,
     offset = offset,
     shape = shape,
-    rate = rate
+    rate = rate,
+    theta = theta,
+    n_inf = n_inf,
+    n_iter = iterations
   )
 
-  purrr::pmap_df(lst, get_r_effective_df_one)
+  if(stoch){
+    purrr::pmap_df(lst, get_r_effective_df_one_stoch)
+  }else{
+    purrr::pmap_df(lst, get_r_effective_df_one)
+  }
 }
+
 get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
                                    t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, rho_s,
                                    rho_a, offset, shape, rate) {
@@ -167,5 +219,76 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     omega_q = omega_q,
     rho_s = rho_s,
     rho_a = rho_a
+  )
+}
+
+
+get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
+                                         t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, rho_s,
+                                         rho_a, offset, shape, rate, n_inf, theta, n_iter) {
+  dqc <- get_dqc_stoch(
+    alpha = alpha,
+    R = R,
+    kappa = kappa,
+    eta = eta,
+    nu = nu,
+    t_ds = t_ds,
+    t_da = t_da,
+    t_qcs = t_qcs,
+    t_qca = t_qca,
+    t_qhs = t_qhs,
+    t_qha = t_qha,
+    t_q = t_q,
+    omega_c = omega_c,
+    omega_h = omega_h,
+    omega_q = omega_q,
+    rho_s = rho_s,
+    rho_a = rho_a,
+    offset = offset,
+    shape = shape,
+    rate = rate,
+    theta = theta,
+    n_inf = n_inf
+  )
+  r_effective <- get_r_effective(
+    dqc,
+    alpha = alpha,
+    R = R,
+    kappa = kappa,
+    eta = eta,
+    nu = nu,
+    t_ds = t_ds,
+    t_da = t_da,
+    t_qcs = t_qcs,
+    t_qca = t_qca,
+    t_qhs = t_qhs,
+    t_qha = t_qha,
+    t_q = t_q,
+    offset = offset,
+    shape = shape,
+    rate = rate
+  )
+  tibble::tibble(
+    r_effective = r_effective,
+    n_iter = n_iter,
+    alpha = alpha,
+    R = R,
+    kappa = kappa,
+    eta = eta,
+    nu = nu,
+    t_ds = t_ds,
+    t_da = t_da,
+    t_qcs = t_qcs,
+    t_qca = t_qca,
+    t_qhs = t_qhs,
+    t_qha = t_qha,
+    t_q = t_q,
+    omega_c = omega_c,
+    omega_h = omega_h,
+    omega_q = omega_q,
+    rho_s = rho_s,
+    rho_a = rho_a,
+    n_inf = n_inf,
+    theta = theta
   )
 }

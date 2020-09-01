@@ -24,7 +24,11 @@ get_r_effective_df(
   rho_a = 0.05,
   offset = -2.31,
   shape = 1.65,
-  rate = 0.5
+  rate = 0.5,
+  stoch = FALSE,
+  theta = NULL,
+  n_inf = NULL,
+  n_iter = NULL
 )
 }
 \arguments{
@@ -93,9 +97,23 @@ Default is 1.65.}
 
 \item{rate}{Numeric. Rate of the gamma distribution of infectious period.
 Default is 0.5.}
+
+\item{stoch}{Logical. Whether to run stochastic model with overdispersion.
+Default is FALSE.}
+
+\item{theta}{Non-negative numeric. Required only if \code{stoch}=TRUE. Overdispersion
+parameter for negative binomial distribution. Default NULL.}
+
+\item{n_inf}{Non-negative numeric. Required only if \code{stoch}=TRUE. Number of
+infections (or effective population size of infected individuals).
+Default NULL.}
+
+\item{n_iter}{Non-negative numeric. Required only if \code{stoch}=TRUE. Number of
+iterations of stochastic model to run for each unique parameter value.
+Default NULL.}
 }
 \value{
-Data frame with 18 columns:
+Data frame with columns:
 \itemize{
 \item \code{r_effective}: The R effective value
 \item \code{alpha}
@@ -115,12 +133,16 @@ Data frame with 18 columns:
 \item \code{omega_q}
 \item \code{rho_s}
 \item \code{rho_a}
+\item \code{theta} if \code{stoch}=TRUE
+\item \code{n_inf} if \code{stoch}=TRUE
 }
 }
 \description{
 This function allows you to input numeric scalars or vectors for each
 parameter to examine how the effective R will vary across configurations.
+Two values (\code{stoch}, \code{n_iter}) require single values.
 }
 \examples{
 get_r_effective_df(alpha = c(0.1, 0.2), kappa = c(0.5, 0.6))
+get_r_effective_df(stoch=TRUE, theta=c(0.1, 0.3), n_inf=100, n_iter=100)
 }

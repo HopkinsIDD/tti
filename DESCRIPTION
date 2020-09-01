@@ -27,7 +27,8 @@ Imports:
     glue,
     tibble,
     purrr,
-    dplyr
+    dplyr,
+    tidyr
 Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),
