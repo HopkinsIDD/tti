@@ -3,7 +3,7 @@
 #' This function allows you to input numeric scalars or vectors for each
 #'    parameter to examine how the effective R will vary across configurations.
 #'    Two values (`stoch`, `n_iter`) require single values.
-#'    
+#'
 #' @param alpha Numeric value or vector of numeric values between 0 and 1.
 #'    The probability of an asymptomatic infection. Default 0.2.
 #' @param R Positive numeric value or vector of positive numeric values.
@@ -52,17 +52,18 @@
 #'    Default is 0.5.
 #' @param stoch Logical. Whether to run stochastic model with overdispersion.
 #'    Default is FALSE.
-#' @param theta Non-negative numeric. Required only if `stoch`=TRUE. Overdispersion 
+#' @param theta Non-negative numeric. Required only if `stoch`=TRUE. Overdispersion
 #'    parameter for negative binomial distribution. Default NULL.
-#' @param n_inf Non-negative numeric. Required only if `stoch`=TRUE. Number of 
+#' @param n_inf Non-negative numeric. Required only if `stoch`=TRUE. Number of
 #'    infections (or effective population size of infected individuals).
 #'    Default NULL.
-#' @param n_iter Non-negative numeric. Required only if `stoch`=TRUE. Number of 
-#'    iterations of stochastic model to run for each unique parameter value. 
+#' @param n_iter Non-negative numeric. Required only if `stoch`=TRUE. Number of
+#'    iterations of stochastic model to run for each unique parameter value.
 #'    Default NULL.
 #'
 #' @return Data frame with columns:
 #'   * `r_effective`: The R effective value
+#'   * `prop_identified`: The proportion of infections identified
 #'   * `alpha`
 #'   * `R`
 #'   * `kappa`
@@ -70,7 +71,7 @@
 #'   * `nu`
 #'   * `t_ds`
 #'   * `t_da`
-#'   * `t_qcs` 
+#'   * `t_qcs`
 #'   * `t_qca`
 #'   * `t_qhs`
 #'   * `t_qha`
@@ -94,36 +95,36 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                omega_h = 0.5,
                                omega_q = 0.5,
                                rho_s = 0.1, rho_a = 0.05, offset = -2.31,
-                               shape = 1.65, rate = 0.5, 
+                               shape = 1.65, rate = 0.5,
                                stoch=FALSE, theta=NULL, n_inf=NULL, n_iter=NULL) {
-  
+
   if(length(n_iter)>1 | length(stoch)>1){
     stop_glue(
       "A single value must be provided for `stoch` and `n_iter`"
     )
   }
-  
+
   if(stoch & (is.null(theta) | is.null(n_inf) | is.null(n_iter))){
     stop_glue(
       "Values must be provided for `theta`, `n_inf`, and `n_iter`",
       "to run a stochastic model."
     )
   }
-  
+
   if(!stoch & (length(theta)>0 | length(n_inf)>0 | length(n_iter)>0)){
-    warning("Parameters `theta`, `n_inf`, and `n_iter` are ignored in deterministic model. 
+    warning("Parameters `theta`, `n_inf`, and `n_iter` are ignored in deterministic model.
   Please use `stoch`=TRUE for stochastic model")
     theta=NULL
     n_inf=NULL
     n_iter=NULL
   }
-  
+
   if(stoch){
     iterations = 1:n_iter
   }else{
     iterations = NULL
   }
-  
+
   lst <- tidyr::expand_grid(
     alpha = alpha,
     R = R,
@@ -202,6 +203,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
   )
   tibble::tibble(
     r_effective = r_effective,
+    prop_identified = get_prop_identified(dqc),
     alpha = alpha,
     R = R,
     kappa = kappa,
@@ -270,6 +272,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
   )
   tibble::tibble(
     r_effective = r_effective,
+    prop_identified = get_prop_identified(dqc),
     n_iter = n_iter,
     alpha = alpha,
     R = R,

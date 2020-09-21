@@ -116,6 +116,7 @@ Default NULL.}
 Data frame with columns:
 \itemize{
 \item \code{r_effective}: The R effective value
+\item \code{prop_identified}: The proportion of infections identified
 \item \code{alpha}
 \item \code{R}
 \item \code{kappa}
