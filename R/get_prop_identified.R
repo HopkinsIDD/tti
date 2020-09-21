@@ -1,6 +1,6 @@
 #' Calculate the proportion isolated and quarantined
 #'
-#' Calculates the proportion isolated and quarantined from a 
+#' Calculates the proportion isolated and quarantined from a
 #' Detected-Quarantine-Community vector
 #'
 #' @template dqc

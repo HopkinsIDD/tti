@@ -10,7 +10,7 @@
 #'    quarantined given infected household contact of isolated case. Default: 0.5.
 #' @param omega_q Numeric value between 0 and 1. The probability of being traced and
 #'    quarantined given infected contact of quarantined person. Default: 0.5.
-#' @param rho_s Numeric value between 0 and 1. The probability of detection 
+#' @param rho_s Numeric value between 0 and 1. The probability of detection
 #'    and isolation given symptomatic. Default: 0.1.
 #' @param rho_a Numeric value between 0 and 1. The probability of detection
 #'    and isolation given asymptomatic. Default: 0.05.

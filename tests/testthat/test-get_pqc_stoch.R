@@ -22,7 +22,7 @@ test_that("DQC with no detection, 50% asymptomatic ", {
     p[["Ds"]], p[["Da"]], p[["Qcds"]], p[["Qhds"]],
     p[["Qcda"]], p[["Qhda"]]
   ), 0)
-  expect_equal(p[["Cs"]]+p[["Ca"]], 1)
+  expect_equal(p[["Cs"]] + p[["Ca"]], 1)
 })
 
 test_that("DQC with 100% household traced, 0% community", {
@@ -34,27 +34,26 @@ test_that("DQC with no effective contact tracing, 100% household traced and 0% h
   p <- get_dqc_stoch(omega_h = 1, omega_c = 0, omega_q = 0, eta = 0)
   expect_equal(sum(
     p[["Qcds"]], p[["Qhds"]], p[["Qcda"]], p[["Qhda"]], p[["Qq"]]
-    ), 0)
+  ), 0)
 })
 
 test_that("DQC with complete detection", {
   p <- get_dqc_stoch(rho_s = 1, rho_a = 1)
   expect_equal(sum(
     p[["Ca"]], p[["Cs"]]
-    ), 0)
+  ), 0)
 })
 
 test_that("DQC with complete detection and no isolation", {
   p <- get_dqc_stoch(rho_s = 1, rho_a = 1, omega_c = 0, omega_h = 0, omega_q = 0)
   expect_equal(sum(
     p[["Ds"]], p[["Da"]]
-    ), 1)
+  ), 1)
 })
 
 test_that("DQC with complete detection and contact tracing", {
   p <- get_dqc_stoch(rho_s = 1, rho_a = 1, omega_c = 1, omega_h = 1, omega_q = 1)
   expect_equal(sum(
     p[["Qcds"]], p[["Qhds"]], p[["Qcda"]], p[["Qhda"]], p[["Qq"]]
-    ), 1)
+  ), 1)
 })
-

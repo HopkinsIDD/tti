@@ -88,7 +88,7 @@
 #'
 #' @examples
 #' get_r_effective_df(alpha = c(0.1, 0.2), kappa = c(0.5, 0.6))
-#' get_r_effective_df(stoch=TRUE, theta=c(0.1, 0.3), n_inf=100, n_iter=100)
+#' get_r_effective_df(stoch = TRUE, theta = c(0.1, 0.3), n_inf = 100, n_iter = 100)
 get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
                                t_ds = 3, t_da = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
                                t_qha = 3, t_q = 3, omega_c = 0.5,
@@ -96,33 +96,32 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                omega_q = 0.5,
                                rho_s = 0.1, rho_a = 0.05, offset = -2.31,
                                shape = 1.65, rate = 0.5,
-                               stoch=FALSE, theta=NULL, n_inf=NULL, n_iter=NULL) {
-
-  if(length(n_iter)>1 | length(stoch)>1){
+                               stoch = FALSE, theta = NULL, n_inf = NULL, n_iter = NULL) {
+  if (length(n_iter) > 1 | length(stoch) > 1) {
     stop_glue(
       "A single value must be provided for `stoch` and `n_iter`"
     )
   }
 
-  if(stoch & (is.null(theta) | is.null(n_inf) | is.null(n_iter))){
+  if (stoch & (is.null(theta) | is.null(n_inf) | is.null(n_iter))) {
     stop_glue(
       "Values must be provided for `theta`, `n_inf`, and `n_iter`",
       "to run a stochastic model."
     )
   }
 
-  if(!stoch & (length(theta)>0 | length(n_inf)>0 | length(n_iter)>0)){
+  if (!stoch & (length(theta) > 0 | length(n_inf) > 0 | length(n_iter) > 0)) {
     warning("Parameters `theta`, `n_inf`, and `n_iter` are ignored in deterministic model.
   Please use `stoch`=TRUE for stochastic model")
-    theta=NULL
-    n_inf=NULL
-    n_iter=NULL
+    theta <- NULL
+    n_inf <- NULL
+    n_iter <- NULL
   }
 
-  if(stoch){
-    iterations = 1:n_iter
-  }else{
-    iterations = NULL
+  if (stoch) {
+    iterations <- 1:n_iter
+  } else {
+    iterations <- NULL
   }
 
   lst <- tidyr::expand_grid(
@@ -151,9 +150,9 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
     n_iter = iterations
   )
 
-  if(stoch){
+  if (stoch) {
     purrr::pmap_df(lst, get_r_effective_df_one_stoch)
-  }else{
+  } else {
     purrr::pmap_df(lst, get_r_effective_df_one)
   }
 }

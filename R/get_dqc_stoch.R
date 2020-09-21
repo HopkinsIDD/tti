@@ -6,7 +6,7 @@
 #' @template init
 #' @param n_generation Numeric positive value. Number of iterations to run.
 #'    Default: 10.
-#' @param ... Optional parameters to pass to [`get_infect_mat`], 
+#' @param ... Optional parameters to pass to [`get_infect_mat`],
 #'   [`get_detect_mat()`], and [`get_intermediate_inf`]. See [`get_infect_mat`],
 #'   [`get_detect_mat()`], and [`get_intermediate_inf`] for defaults.
 #'
@@ -34,50 +34,48 @@ get_dqc_stoch <- function(init = c(
 
   detect_args <- dots[names(dots) %in%
     c("alpha", "omega_c", "omega_h", "omega_q", "rho_s", "rho_a")]
-  
+
   infect_args <- dots[names(dots) %in%
     c(
       "alpha", "R", "kappa", "eta", "nu", "t_ds", "t_da", "t_qcs", "t_qca",
       "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate"
     )]
-  
+
   stoch_args <- dots[names(dots) %in% c("theta", "n_inf")]
-  
+
   detect <- do.call(get_detect_mat, detect_args)
   infect <- do.call(get_infect_mat, infect_args)
   stoch_args$infect <- infect # there has to be a better way to do this?
-  
+
   categories <- c("Ds", "Da", "Qcds", "Qhds", "Qcda", "Qhda", "Qq", "Cs", "Ca")
   stoch_args$dqc <- init
-  
+
   int <- do.call(get_intermediate_inf, stoch_args)
-  while(sum(int)==0){
+  while (sum(int) == 0) {
     int <- do.call(get_intermediate_inf, stoch_args)
   }
-  
-  dqc <- rowSums(sapply(1:length(int), function(x, det=detect) stats::rmultinom(1, int[x], det[x,])))
+
+  dqc <- rowSums(sapply(1:length(int), function(x, det = detect) stats::rmultinom(1, int[x], det[x, ])))
   dqc <- stats::setNames(dqc / sum(dqc), categories)
-  
-  i=1
-  
-  while(i<n_generation){
-    
+
+  i <- 1
+
+  while (i < n_generation) {
     stoch_args$dqc <- dqc
-    
+
     int_new <- do.call(get_intermediate_inf, stoch_args)
-    if(sum(int_new>0)){
+    if (sum(int_new > 0)) {
       int <- int_new
     }
-    
-    dqc <- rowSums(sapply(1:length(int), function(x, det=detect) stats::rmultinom(1, int[x], det[x,])))
-    
+
+    dqc <- rowSums(sapply(1:length(int), function(x, det = detect) stats::rmultinom(1, int[x], det[x, ])))
+
     dqc <- stats::setNames(dqc / sum(dqc), categories)
-    
-    i=i+1
+
+    i <- i + 1
   }
 
   dqc
-  
 }
 
 
@@ -89,26 +87,23 @@ get_dqc_stoch <- function(init = c(
 #' @param dqc Current values for DQC compartments. All elements of this vector
 #'   should sum to 1.
 #' @param infect INFECT matrix returned by [`get_infect_mat`]
-#' @param n_inf Number of infections (or effective population size of infected 
+#' @param n_inf Number of infections (or effective population size of infected
 #'   individuals). Default 1000.
-#' @param theta Non-negative numeric value. Shape parameter for overdispersion 
+#' @param theta Non-negative numeric value. Shape parameter for overdispersion
 #'    in R. Default 0.2.
 #' @return Vector of intermediate infection states
 #' @export
 #'
 get_intermediate_inf <- function(dqc, infect, n_inf = 1000, theta = 0.2) {
-  
   dqc <- check_dqc(dqc)
   dqc <- round(dqc * n_inf)
- 
+
   tmp <- rep(0, ncol(infect))
-  
-  for(i in 1:length(dqc)){
+
+  for (i in 1:length(dqc)) {
     tmp <- tmp +
-            rowSums(matrix(stats::rnbinom(dqc[i]*ncol(infect), mu=infect[i,], size=theta), nrow=ncol(infect)))
+      rowSums(matrix(stats::rnbinom(dqc[i] * ncol(infect), mu = infect[i, ], size = theta), nrow = ncol(infect)))
   }
-  
+
   return(tmp)
 }
-
-

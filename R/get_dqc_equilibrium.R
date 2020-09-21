@@ -71,7 +71,6 @@ get_dqc_equilibrium <- function(init = c(
 #' @export
 #'
 get_dqc_equilibrium_base <- function(init, infect, detect, tolerance = 1e-4, burn_in = 10) {
-
   dqc <- as.numeric(init)
   infect_detect <- infect %*% detect
   dqc_next <- (dqc %*% infect_detect) / sum(dqc %*% infect_detect)
@@ -90,4 +89,3 @@ get_dqc_equilibrium_base <- function(init, infect, detect, tolerance = 1e-4, bur
   }
   dqc_next
 }
-
