@@ -33,7 +33,7 @@ get_dqc_stoch <- function(init = c(
   dots <- list(...)
 
   detect_args <- dots[names(dots) %in%
-    c("alpha", "omega_c", "omega_h", "omega_q", "rho_s", "rho_a")]
+    c("alpha", "omega_c", "omega_h", "omega_q", "quarantine_days", "rho_s", "rho_a")]
 
   infect_args <- dots[names(dots) %in%
     c(

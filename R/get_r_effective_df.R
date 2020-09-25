@@ -40,6 +40,8 @@
 #'    quarantined given household contact of a person. Default: 0.5.
 #' @param omega_q Numeric value or vector of numeric values between 0 and 1. The probability of being traced and
 #'    quarantined given quarantine contact of a person. Default: 0.5.
+#' @param quarantine_days Positive numeric value. The number of days contacts are told
+#'    to quarantine. Default: 14.
 #' @param rho_s Numeric value or vector of numeric values between 0 and 1. The probability of
 #'    detection and isolation given symptomatic. Default: 0.1.
 #' @param rho_a Numeric value or vector of numeric values between 0 and 1. The probability of
@@ -79,6 +81,7 @@
 #'   * `omega_c`
 #'   * `omega_h`
 #'   * `omega_q`
+#'   * `quarantine_days`
 #'   * `rho_s`
 #'   * `rho_a`
 #'   * `theta` if `stoch`=TRUE
@@ -94,6 +97,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                t_qha = 3, t_q = 3, omega_c = 0.5,
                                omega_h = 0.5,
                                omega_q = 0.5,
+                               quarantine_days = 14,
                                rho_s = 0.1, rho_a = 0.05, offset = -2.31,
                                shape = 1.65, rate = 0.5,
                                stoch = FALSE, theta = NULL, n_inf = NULL, n_iter = NULL) {
@@ -140,6 +144,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
     omega_c = omega_c,
     omega_h = omega_h,
     omega_q = omega_q,
+    quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
     offset = offset,
@@ -158,7 +163,8 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
 }
 
 get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
-                                   t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, rho_s,
+                                   t_qhs, t_qha, t_q, omega_c, omega_h, omega_q,
+                                   quarantine_days, rho_s,
                                    rho_a, offset, shape, rate) {
   dqc <- get_dqc_equilibrium(
     alpha = alpha,
@@ -176,6 +182,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     omega_c = omega_c,
     omega_h = omega_h,
     omega_q = omega_q,
+    quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
     offset = offset,
@@ -218,6 +225,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     omega_c = omega_c,
     omega_h = omega_h,
     omega_q = omega_q,
+    quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a
   )
@@ -225,8 +233,8 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
 
 
 get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
-                                         t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, rho_s,
-                                         rho_a, offset, shape, rate, n_inf, theta, n_iter) {
+                                         t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, quarantine_days,
+                                         rho_s, rho_a, offset, shape, rate, n_inf, theta, n_iter) {
   dqc <- get_dqc_stoch(
     alpha = alpha,
     R = R,
@@ -243,6 +251,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     omega_c = omega_c,
     omega_h = omega_h,
     omega_q = omega_q,
+    quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
     offset = offset,
@@ -288,6 +297,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     omega_c = omega_c,
     omega_h = omega_h,
     omega_q = omega_q,
+    quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
     n_inf = n_inf,
