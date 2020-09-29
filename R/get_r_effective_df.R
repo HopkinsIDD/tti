@@ -97,7 +97,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                t_qha = 3, t_q = 3, omega_c = 0.5,
                                omega_h = 0.5,
                                omega_q = 0.5,
-                               quarantine_days = 14,
+                               quarantine_days = Inf,
                                rho_s = 0.1, rho_a = 0.05, offset = -2.31,
                                shape = 1.65, rate = 0.5,
                                stoch = FALSE, theta = NULL, n_inf = NULL, n_iter = NULL) {

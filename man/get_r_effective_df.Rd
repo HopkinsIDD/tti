@@ -20,7 +20,7 @@ get_r_effective_df(
   omega_c = 0.5,
   omega_h = 0.5,
   omega_q = 0.5,
-  quarantine_days = 14,
+  quarantine_days = Inf,
   rho_s = 0.1,
   rho_a = 0.05,
   offset = -2.31,

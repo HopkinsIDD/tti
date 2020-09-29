@@ -11,7 +11,7 @@
 #' @param omega_q Numeric value between 0 and 1. The probability of being traced and
 #'    quarantined given infected contact of quarantined person. Default: 0.5.
 #' @param quarantine_days Positive numeric value. The number of days contacts are told
-#'    to quarantine. Default: 14.
+#'    to quarantine. Default: Inf.
 #' @param rho_s Numeric value between 0 and 1. The probability of detection
 #'    and isolation given symptomatic. Default: 0.1.
 #' @param rho_a Numeric value between 0 and 1. The probability of detection
@@ -25,7 +25,7 @@ get_detect_mat <-
            omega_c = 0.5,
            omega_h = 0.5,
            omega_q = 0.5,
-           quarantine_days = 14,
+           quarantine_days = Inf,
            rho_s = 0.1,
            rho_a = 0.05) {
     is_positive(quarantine_days)
