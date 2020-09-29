@@ -53,7 +53,7 @@ test_that("DQC equilibrium with complete detection and no isolation", {
 })
 
 test_that("DQC equilibrium with complete detection and contact tracing", {
-  p <- get_dqc_equilibrium(rho_s = 1, rho_a = 1, omega_c = 1, omega_h = 1, omega_q = 1, quarantine_days = 100)
+  p <- get_dqc_equilibrium(rho_s = 1, rho_a = 1, omega_c = 1, omega_h = 1, omega_q = 1, quarantine_days = Inf)
   expect_equal(sum(
     p[["Qcds"]], p[["Qhds"]], p[["Qcda"]], p[["Qhda"]], p[["Qq"]]
   ), 1)
