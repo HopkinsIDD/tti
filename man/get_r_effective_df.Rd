@@ -20,6 +20,7 @@ get_r_effective_df(
   omega_c = 0.5,
   omega_h = 0.5,
   omega_q = 0.5,
+  quarantine_days = Inf,
   rho_s = 0.1,
   rho_a = 0.05,
   offset = -2.31,
@@ -83,6 +84,9 @@ quarantined given household contact of a person. Default: 0.5.}
 \item{omega_q}{Numeric value or vector of numeric values between 0 and 1. The probability of being traced and
 quarantined given quarantine contact of a person. Default: 0.5.}
 
+\item{quarantine_days}{Positive numeric value. The number of days contacts are told
+to quarantine. Default: 14.}
+
 \item{rho_s}{Numeric value or vector of numeric values between 0 and 1. The probability of
 detection and isolation given symptomatic. Default: 0.1.}
 
@@ -132,6 +136,7 @@ Data frame with columns:
 \item \code{omega_c}
 \item \code{omega_h}
 \item \code{omega_q}
+\item \code{quarantine_days}
 \item \code{rho_s}
 \item \code{rho_a}
 \item \code{theta} if \code{stoch}=TRUE
@@ -145,5 +150,5 @@ Two values (\code{stoch}, \code{n_iter}) require single values.
 }
 \examples{
 get_r_effective_df(alpha = c(0.1, 0.2), kappa = c(0.5, 0.6))
-get_r_effective_df(stoch=TRUE, theta=c(0.1, 0.3), n_inf=100, n_iter=100)
+get_r_effective_df(stoch = TRUE, theta = c(0.1, 0.3), n_inf = 100, n_iter = 100)
 }

@@ -33,3 +33,5 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),
     covr
+Depends: 
+    R (>= 2.10)

@@ -9,6 +9,7 @@ get_detect_mat(
   omega_c = 0.5,
   omega_h = 0.5,
   omega_q = 0.5,
+  quarantine_days = Inf,
   rho_s = 0.1,
   rho_a = 0.05
 )
@@ -25,6 +26,9 @@ quarantined given infected household contact of isolated case. Default: 0.5.}
 
 \item{omega_q}{Numeric value between 0 and 1. The probability of being traced and
 quarantined given infected contact of quarantined person. Default: 0.5.}
+
+\item{quarantine_days}{Positive numeric value. The number of days contacts are told
+to quarantine. Default: Inf.}
 
 \item{rho_s}{Numeric value between 0 and 1. The probability of detection
 and isolation given symptomatic. Default: 0.1.}
