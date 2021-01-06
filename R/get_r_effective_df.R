@@ -98,8 +98,8 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                omega_h = 0.5,
                                omega_q = 0.5,
                                quarantine_days = Inf,
-                               rho_s = 0.1, rho_a = 0.05, offset = -2.31,
-                               shape = 1.65, rate = 0.5,
+                               rho_s = 0.1, rho_a = 0.05, offset = -12.27,
+                               shape = 21.13, rate = 1.592,
                                stoch = FALSE, theta = NULL, n_inf = NULL, n_iter = NULL) {
   if (length(n_iter) > 1 | length(stoch) > 1) {
     stop_glue(

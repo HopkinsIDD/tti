@@ -43,8 +43,8 @@
 #' @export
 get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
                            t_ds = 3, t_da = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
-                           t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
-                           shape = 1.65, rate = 0.5) {
+                           t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -12.27,
+                           shape = 21.13, rate = 1.592) {
   is_probability(alpha)
   is_probability(eta)
   is_positive(R)
@@ -70,23 +70,23 @@ get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
 
   gamma_qcs <- get_prop_infect_time(
     t_qcs,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = offset
   )
   gamma_qca <- get_prop_infect_time(
     t_qca,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = offset
   )
   gamma_qhs <- get_prop_infect_time(
     t_qhs,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = offset
   )
   gamma_qha <- get_prop_infect_time(
     t_qha,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = offset
   )
   gamma_q <- get_prop_infect_time(
     t_q,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = offset
   )
 
   R_s <- R / ((alpha * kappa) - alpha + 1)

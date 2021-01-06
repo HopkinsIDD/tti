@@ -15,8 +15,8 @@
 #' @return Numeric. Proportion of infectious period reduced given the
 #'   distribution of infectiousness and time from symptom onset to isolation.
 #' @export
-get_prop_infect_time <- function(delay, offset = -2.31,
-                                 shape = 1.65, rate = 0.5) {
+get_prop_infect_time <- function(delay, offset = -12.27,
+                                 shape = 21.13, rate = 1.592) {
   if (delay < offset) {
     return(0)
   }

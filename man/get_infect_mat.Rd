@@ -18,9 +18,9 @@ get_infect_mat(
   t_qha = 3,
   t_q = 3,
   t_incubation = 5.5,
-  offset = -2.31,
-  shape = 1.65,
-  rate = 0.5
+  offset = -12.27,
+  shape = 21.13,
+  rate = 1.592
 )
 }
 \arguments{

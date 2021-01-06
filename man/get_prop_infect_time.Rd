@@ -4,7 +4,7 @@
 \alias{get_prop_infect_time}
 \title{Calculate proportion of the infectious period reduced}
 \usage{
-get_prop_infect_time(delay, offset = -2.31, shape = 1.65, rate = 0.5)
+get_prop_infect_time(delay, offset = -12.27, shape = 21.13, rate = 1.592)
 }
 \arguments{
 \item{delay}{Numeric greater than 0. Time from symptom onset to isolation}
