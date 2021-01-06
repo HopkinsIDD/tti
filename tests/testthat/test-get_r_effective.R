@@ -156,7 +156,7 @@ test_that("get_r_effective works, change incubation", {
 })
 
 test_that("get_r_effective works, change shape of gamma", {
-  param <- 4
+  param <- 30
   dqc <- c(
     Ds = 0.2, Da = 0.1, Qcds = 0.1, Qhds = 0.1, Qcda = 0.1, Qhda = 0.1,
     Qq = 0.15, Cs = 0.1, Ca = 0.05
