@@ -2,15 +2,17 @@
 #'
 #' Calculates the proportion of the infections period reduced given the
 #' distribution of infectiousness and time from symptom onset to isolation.
-#' Infectious period is assumed to be gamma distributed.
+#' Infectious period is assumed to be gamma distributed. Defaults derived
+#' from a correction of He et al. (2020) where the incubation period was 
+#' assumed to be 5.5 days and the generation time 6.5 days.
 #'
 #' @param delay Numeric greater than 0. Time from symptom onset to isolation
 #' @param offset Numeric. Offset of infectiousness compared to symptom onset.
-#'     Default is -2.31.
+#'     Default is -12.27.
 #' @param shape Numeric. Shape of the gamma distribution of infectious period.
-#'    Default is 1.65.
+#'    Default is 21.13.
 #' @param rate Numeric. Rate of the gamma distribution of infectious period.
-#'    Default is 0.5.
+#'    Default is 1.592.
 #'
 #' @return Numeric. Proportion of infectious period reduced given the
 #'   distribution of infectiousness and time from symptom onset to isolation.
