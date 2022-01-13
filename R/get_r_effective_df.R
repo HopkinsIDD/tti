@@ -46,6 +46,8 @@
 #'    detection and isolation given symptomatic. Default: 0.1.
 #' @param rho_a Numeric value or vector of numeric values between 0 and 1. The probability of
 #'    detection and isolation given asymptomatic. Default: 0.05.
+#' @param t_incubation Non-negative numeric value. The estimated average
+#'     incubation time. Default: 5.5.
 #' @param offset Numeric. Offset of infectiousness compared to symptoms onset.
 #'     Default is -2.31.
 #' @param shape Numeric. Shape of the gamma distribution of infectious period.
@@ -98,7 +100,9 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                omega_h = 0.5,
                                omega_q = 0.5,
                                quarantine_days = Inf,
-                               rho_s = 0.1, rho_a = 0.05, offset = -2.31,
+                               rho_s = 0.1, rho_a = 0.05,
+                               t_incubation = 5.5,
+                               offset = -2.31,
                                shape = 1.65, rate = 0.5,
                                stoch = FALSE, theta = NULL, n_inf = NULL, n_iter = NULL) {
   if (length(n_iter) > 1 | length(stoch) > 1) {
@@ -147,6 +151,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
     quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
+    t_incubation = t_incubation,
     offset = offset,
     shape = shape,
     rate = rate,
@@ -165,7 +170,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
 get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
                                    t_qhs, t_qha, t_q, omega_c, omega_h, omega_q,
                                    quarantine_days, rho_s,
-                                   rho_a, offset, shape, rate) {
+                                   rho_a, t_incubation, offset, shape, rate) {
   dqc <- get_dqc_equilibrium(
     alpha = alpha,
     R = R,
@@ -185,6 +190,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
+    t_incubation = t_incubation,
     offset = offset,
     shape = shape,
     rate = rate
@@ -203,6 +209,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     t_qhs = t_qhs,
     t_qha = t_qha,
     t_q = t_q,
+    t_incubation = t_incubation,
     offset = offset,
     shape = shape,
     rate = rate
@@ -234,7 +241,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
 
 get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
                                          t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, quarantine_days,
-                                         rho_s, rho_a, offset, shape, rate, n_inf, theta, n_iter) {
+                                         rho_s, rho_a, t_incubation, offset, shape, rate, n_inf, theta, n_iter) {
   dqc <- get_dqc_stoch(
     alpha = alpha,
     R = R,
@@ -254,6 +261,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     quarantine_days = quarantine_days,
     rho_s = rho_s,
     rho_a = rho_a,
+    t_incubation = t_incubation,
     offset = offset,
     shape = shape,
     rate = rate,
@@ -274,6 +282,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     t_qhs = t_qhs,
     t_qha = t_qha,
     t_q = t_q,
+    t_incubation = t_incubation,
     offset = offset,
     shape = shape,
     rate = rate

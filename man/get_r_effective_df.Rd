@@ -23,6 +23,7 @@ get_r_effective_df(
   quarantine_days = Inf,
   rho_s = 0.1,
   rho_a = 0.05,
+  t_incubation = 5.5,
   offset = -2.31,
   shape = 1.65,
   rate = 0.5,
@@ -92,6 +93,9 @@ detection and isolation given symptomatic. Default: 0.1.}
 
 \item{rho_a}{Numeric value or vector of numeric values between 0 and 1. The probability of
 detection and isolation given asymptomatic. Default: 0.05.}
+
+\item{t_incubation}{Non-negative numeric value. The estimated average
+incubation time. Default: 5.5.}
 
 \item{offset}{Numeric. Offset of infectiousness compared to symptoms onset.
 Default is -2.31.}
