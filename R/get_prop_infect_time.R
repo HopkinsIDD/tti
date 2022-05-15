@@ -31,7 +31,7 @@ get_prop_infect_time <- function(delay, offset = -2.31,
     post_isolation <- stats::pgamma(isolation_days - offset,
                                     shape = shape, rate = rate,
                                     lower.tail = FALSE)
-    return(pre_isolation + post_isolation)
+    return(min(pre_isolation + post_isolation, 1))
 
   }
   stats::pgamma(delay - offset, shape = shape, rate = rate)
