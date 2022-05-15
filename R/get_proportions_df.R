@@ -27,7 +27,7 @@ get_proportions_df <- function(duration, init = c(
   infect_args <- dots[names(dots) %in%
     c(
       "alpha", "R", "kappa", "eta", "nu", "t_ds", "t_da", "t_qcs", "t_qca",
-      "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate"
+      "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate", "isolation_days"
     )]
 
   categories <- c("Ds", "Da", "Qcds", "Qhds", "Qcda", "Qhda", "Qq", "Cs", "Ca")

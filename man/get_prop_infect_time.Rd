@@ -4,7 +4,13 @@
 \alias{get_prop_infect_time}
 \title{Calculate proportion of the infectious period reduced}
 \usage{
-get_prop_infect_time(delay, offset = -2.31, shape = 1.65, rate = 0.5)
+get_prop_infect_time(
+  delay,
+  offset = -2.31,
+  shape = 1.65,
+  rate = 0.5,
+  isolation_days = Inf
+)
 }
 \arguments{
 \item{delay}{Numeric greater than 0. Time from symptom onset to isolation}
@@ -17,13 +23,17 @@ Default is 1.65.}
 
 \item{rate}{Numeric. Rate of the gamma distribution of infectious period.
 Default is 0.5.}
+
+\item{isolation_days}{Numeric greater than 0. Number of days from symptom
+onset to end of isolation. Default is \code{Inf} implying isolation until no
+longer infectious.}
 }
 \value{
-Numeric. Proportion of infectious period reduced given the
-distribution of infectiousness and time from symptom onset to isolation.
+Numeric. Proportion of infectious period (reduced given the
+distribution of infectiousness and time from symptom onset to isolation).
 }
 \description{
-Calculates the proportion of the infections period reduced given the
-distribution of infectiousness and time from symptom onset to isolation.
+Calculates the proportion of the infections period (reduced given the
+distribution of infectiousness and time from symptom onset to isolation).
 Infectious period is assumed to be gamma distributed.
 }

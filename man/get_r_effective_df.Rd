@@ -27,6 +27,7 @@ get_r_effective_df(
   offset = -2.31,
   shape = 1.65,
   rate = 0.5,
+  isolation_days = Inf,
   stoch = FALSE,
   theta = NULL,
   n_inf = NULL,
@@ -86,7 +87,7 @@ quarantined given household contact of a person. Default: 0.5.}
 quarantined given quarantine contact of a person. Default: 0.5.}
 
 \item{quarantine_days}{Positive numeric value. The number of days contacts are told
-to quarantine. Default: 14.}
+to quarantine. Default: Inf.}
 
 \item{rho_s}{Numeric value or vector of numeric values between 0 and 1. The probability of
 detection and isolation given symptomatic. Default: 0.1.}
@@ -105,6 +106,10 @@ Default is 1.65.}
 
 \item{rate}{Numeric. Rate of the gamma distribution of infectious period.
 Default is 0.5.}
+
+\item{isolation_days}{Numeric greater than 0. Number of days from symptom
+onset to end of isolation. Default is \code{Inf} implying isolation until no
+longer infectious.}
 
 \item{stoch}{Logical. Whether to run stochastic model with overdispersion.
 Default is FALSE.}
@@ -141,6 +146,7 @@ Data frame with columns:
 \item \code{omega_h}
 \item \code{omega_q}
 \item \code{quarantine_days}
+\item \code{isolation_days}
 \item \code{rho_s}
 \item \code{rho_a}
 \item \code{theta} if \code{stoch}=TRUE

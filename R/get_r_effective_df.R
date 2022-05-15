@@ -41,7 +41,7 @@
 #' @param omega_q Numeric value or vector of numeric values between 0 and 1. The probability of being traced and
 #'    quarantined given quarantine contact of a person. Default: 0.5.
 #' @param quarantine_days Positive numeric value. The number of days contacts are told
-#'    to quarantine. Default: 14.
+#'    to quarantine. Default: Inf.
 #' @param rho_s Numeric value or vector of numeric values between 0 and 1. The probability of
 #'    detection and isolation given symptomatic. Default: 0.1.
 #' @param rho_a Numeric value or vector of numeric values between 0 and 1. The probability of
@@ -54,6 +54,9 @@
 #'    Default is 1.65.
 #' @param rate Numeric. Rate of the gamma distribution of infectious period.
 #'    Default is 0.5.
+#' @param isolation_days Numeric greater than 0. Number of days from symptom
+#'    onset to end of isolation. Default is `Inf` implying isolation until no
+#'    longer infectious.
 #' @param stoch Logical. Whether to run stochastic model with overdispersion.
 #'    Default is FALSE.
 #' @param theta Non-negative numeric. Required only if `stoch`=TRUE. Overdispersion
@@ -84,6 +87,7 @@
 #'   * `omega_h`
 #'   * `omega_q`
 #'   * `quarantine_days`
+#'   * `isolation_days`
 #'   * `rho_s`
 #'   * `rho_a`
 #'   * `theta` if `stoch`=TRUE
@@ -103,7 +107,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
                                rho_s = 0.1, rho_a = 0.05,
                                t_incubation = 5.5,
                                offset = -2.31,
-                               shape = 1.65, rate = 0.5,
+                               shape = 1.65, rate = 0.5, isolation_days = Inf,
                                stoch = FALSE, theta = NULL, n_inf = NULL, n_iter = NULL) {
   if (length(n_iter) > 1 | length(stoch) > 1) {
     stop_glue(
@@ -155,6 +159,7 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
     offset = offset,
     shape = shape,
     rate = rate,
+    isolation_days = isolation_days,
     theta = theta,
     n_inf = n_inf,
     n_iter = iterations
@@ -170,7 +175,8 @@ get_r_effective_df <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu 
 get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
                                    t_qhs, t_qha, t_q, omega_c, omega_h, omega_q,
                                    quarantine_days, rho_s,
-                                   rho_a, t_incubation, offset, shape, rate) {
+                                   rho_a, t_incubation, offset, shape, rate,
+                                   isolation_days) {
   dqc <- get_dqc_equilibrium(
     alpha = alpha,
     R = R,
@@ -193,7 +199,8 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     t_incubation = t_incubation,
     offset = offset,
     shape = shape,
-    rate = rate
+    rate = rate,
+    isolation_days = isolation_days
   )
   r_effective <- get_r_effective(
     dqc,
@@ -212,7 +219,8 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     t_incubation = t_incubation,
     offset = offset,
     shape = shape,
-    rate = rate
+    rate = rate,
+    isolation_days = isolation_days
   )
   tibble::tibble(
     r_effective = r_effective,
@@ -233,6 +241,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
     omega_h = omega_h,
     omega_q = omega_q,
     quarantine_days = quarantine_days,
+    isolation_days = isolation_days,
     rho_s = rho_s,
     rho_a = rho_a
   )
@@ -241,7 +250,7 @@ get_r_effective_df_one <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, 
 
 get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t_qcs, t_qca,
                                          t_qhs, t_qha, t_q, omega_c, omega_h, omega_q, quarantine_days,
-                                         rho_s, rho_a, t_incubation, offset, shape, rate, n_inf, theta, n_iter) {
+                                         rho_s, rho_a, t_incubation, offset, shape, rate, isolation_days, n_inf, theta, n_iter) {
   dqc <- get_dqc_stoch(
     alpha = alpha,
     R = R,
@@ -265,6 +274,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     offset = offset,
     shape = shape,
     rate = rate,
+    isolation_days = isolation_days,
     theta = theta,
     n_inf = n_inf
   )
@@ -285,7 +295,8 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     t_incubation = t_incubation,
     offset = offset,
     shape = shape,
-    rate = rate
+    rate = rate,
+    isolation_days = isolation_days
   )
   tibble::tibble(
     r_effective = r_effective,
@@ -307,6 +318,7 @@ get_r_effective_df_one_stoch <- function(alpha, R, kappa, eta, nu, t_ds, t_da, t
     omega_h = omega_h,
     omega_q = omega_q,
     quarantine_days = quarantine_days,
+    isolation_days = isolation_days,
     rho_s = rho_s,
     rho_a = rho_a,
     n_inf = n_inf,

@@ -20,7 +20,8 @@ get_infect_mat(
   t_incubation = 5.5,
   offset = -2.31,
   shape = 1.65,
-  rate = 0.5
+  rate = 0.5,
+  isolation_days = Inf
 )
 }
 \arguments{
@@ -76,6 +77,10 @@ Default is 1.65.}
 
 \item{rate}{Numeric. Rate of the gamma distribution of infectious period.
 Default is 0.5.}
+
+\item{isolation_days}{Numeric greater than 0. Number of days from symptom
+onset to end of isolation. Default is \code{Inf} implying isolation until no
+longer infectious.}
 }
 \value{
 Matrix

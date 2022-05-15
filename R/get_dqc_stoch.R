@@ -38,7 +38,7 @@ get_dqc_stoch <- function(init = c(
   infect_args <- dots[names(dots) %in%
     c(
       "alpha", "R", "kappa", "eta", "nu", "t_ds", "t_da", "t_qcs", "t_qca",
-      "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate"
+      "t_qhs", "t_qha", "t_incubation", "offset", "shape", "rate", "isolation_days"
     )]
 
   stoch_args <- dots[names(dots) %in% c("theta", "n_inf")]

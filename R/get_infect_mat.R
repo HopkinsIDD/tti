@@ -39,12 +39,15 @@
 #'    Default is 1.65.
 #' @param rate Numeric. Rate of the gamma distribution of infectious period.
 #'    Default is 0.5.
+#' @param isolation_days Numeric greater than 0. Number of days from symptom
+#'    onset to end of isolation. Default is `Inf` implying isolation until no
+#'    longer infectious.
 #' @return Matrix
 #' @export
 get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
                            t_ds = 3, t_da = 3, t_qcs = 3, t_qca = 3, t_qhs = 3,
                            t_qha = 3, t_q = 3, t_incubation = 5.5, offset = -2.31,
-                           shape = 1.65, rate = 0.5) {
+                           shape = 1.65, rate = 0.5, isolation_days = Inf) {
   is_probability(alpha)
   is_probability(eta)
   is_positive(R)
@@ -59,34 +62,39 @@ get_infect_mat <- function(alpha = 0.2, R = 2.5, kappa = 0.5, eta = 0.5, nu = 4,
 
   gamma_ds <- get_prop_infect_time(
     t_ds,
-    offset = offset, shape = shape, rate = rate
+    offset = offset, shape = shape, rate = rate, isolation_days = isolation_days
   )
   gamma_da <- get_prop_infect_time(
     t_da,
-    offset = offset, shape = shape, rate = rate
+    offset = offset, shape = shape, rate = rate, isolation_days = isolation_days
   )
 
   second_gen_shape <- shape + (shape + (t_incubation + offset) * rate)
 
   gamma_qcs <- get_prop_infect_time(
     t_qcs,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = 0,
+    isolation_days = isolation_days
   )
   gamma_qca <- get_prop_infect_time(
     t_qca,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = 0,
+    isolation_days = isolation_days
   )
   gamma_qhs <- get_prop_infect_time(
     t_qhs,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = 0,
+    isolation_days = isolation_days
   )
   gamma_qha <- get_prop_infect_time(
     t_qha,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = 0,
+    isolation_days = isolation_days
   )
   gamma_q <- get_prop_infect_time(
     t_q,
-    shape = second_gen_shape, rate = rate, offset = 0
+    shape = second_gen_shape, rate = rate, offset = 0,
+    isolation_days = isolation_days
   )
 
   R_s <- R / ((alpha * kappa) - alpha + 1)
